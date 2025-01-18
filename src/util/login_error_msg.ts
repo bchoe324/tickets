@@ -1,7 +1,8 @@
-export default function authErrorMsg(errorCode: string) {
+function loginErrorMsg(errorCode: string) {
   switch (errorCode) {
     case "auth/user-not-found":
     case "auth/wrong-password":
+    case "auth/invalid-credential":
       return "이메일 혹은 비밀번호가 일치하지 않습니다.";
     case "auth/email-already-in-use":
       return "이미 사용 중인 이메일입니다.";
@@ -17,3 +18,5 @@ export default function authErrorMsg(errorCode: string) {
       return "로그인에 실패 하였습니다.";
   }
 }
+
+export default loginErrorMsg;

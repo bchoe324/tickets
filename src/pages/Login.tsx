@@ -1,17 +1,86 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../components/AuthComponents.css";
-import { authErrorMsg } from "../util/auth_error_msg";
+import loginErrorMsg from "../util/login_error_msg";
+import { useState } from "react";
+import { auth } from "../firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import Loading from "../components/Loading";
 
 const Login = () => {
+  const [isLoading, setLoading] = useState(false);
+  const [userInfo, setUserInfo] = useState({
+    email: "",
+    password: "",
+  });
+  const [errorMessage, setErrorMessage] = useState("");
+  const nav = useNavigate();
+
+  const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUserInfo((prev) => ({
+      ...prev,
+      [e.target.id]: e.target.value,
+    }));
+  };
+
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (isLoading || userInfo.email === "" || userInfo.password === "") return;
+    setLoading(true);
+    signInWithEmailAndPassword(auth, userInfo.email, userInfo.password)
+      .then(() => {
+        setLoading(false);
+        nav("/");
+      })
+      .catch((error) => {
+        console.log(error.code);
+        setErrorMessage(loginErrorMsg(error.code));
+      });
+  };
+
   return (
     <div className="login">
-      <h1>로그인</h1>
-      <form>
-        <input type="email" required placeholder="이메일을 입력하세요." />
-        <input type="password" required placeholder="비밀번호를 입력하세요." />
-        <input type="submit" value="로그인" />
+      {isLoading ? <Loading /> : null}
+      <div className="title">
+        <h1>Tickets</h1>
+      </div>
+      <h2>로그인</h2>
+      {errorMessage ? <p className="error_message">{errorMessage}</p> : null}
+
+      <form onSubmit={onSubmit}>
+        <div className="collumn">
+          <label htmlFor="email">이메일</label>
+          <input
+            id="email"
+            type="email"
+            required
+            placeholder="이메일을 입력하세요"
+            className="email"
+            value={userInfo.email}
+            onChange={onChangeInput}
+          />
+        </div>
+        <div className="collumn">
+          <label htmlFor="password">비밀번호</label>
+          <input
+            id="password"
+            type="password"
+            required
+            placeholder="비밀번호를 입력하세요"
+            className="password"
+            value={userInfo.password}
+            onChange={onChangeInput}
+          />
+        </div>
+        <input
+          type="submit"
+          value="이메일로 로그인"
+          className="submit_button"
+        />
       </form>
-      <Link to={"/join"}>회원가입</Link>
+      <div className="link_wrapper">
+        <Link to={"/forgot-password"}>비밀번호 찾기</Link>
+        <Link to={"/join"}>회원가입</Link>
+      </div>
     </div>
   );
 };

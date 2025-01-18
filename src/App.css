@@ -113,6 +113,7 @@ body {
 body {
   width: 100%;
   background-color: rgb(246, 246, 246);
+  font-size: 16px;
 }
 
 img {
@@ -123,6 +124,7 @@ img {
 
 #root {
   max-width: 600px;
+  min-width: 300px;
   width: 100%;
   min-height: 100vh;
   height: 100%;
@@ -130,4 +132,17 @@ img {
   padding: 0 20px;
   background-color: #fff;
   box-shadow: rgba(000, 000, 000, 0.1) 0px 0px 25px 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#root > div {
+  flex: 1 1 auto;
+}
+
+h1 {
+  font-family: "contempora-script", sans-serif;
+  font-weight: 700;
+  font-style: normal;
 }
