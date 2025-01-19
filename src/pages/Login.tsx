@@ -1,5 +1,11 @@
 import { Link, useNavigate } from "react-router-dom";
-import "../components/AuthComponents.css";
+import {
+  Wrapper,
+  ErrorMessage,
+  Form,
+  Collumn,
+  LinkWrapper,
+} from "../components/AuthComponents";
 import loginErrorMsg from "../util/login_error_msg";
 import { useState } from "react";
 import { auth } from "../firebase";
@@ -38,50 +44,48 @@ const Login = () => {
   };
 
   return (
-    <div className="login">
+    <Wrapper>
       {isLoading ? <Loading /> : null}
       <div className="title">
         <h1>Tickets</h1>
       </div>
       <h2>로그인</h2>
-      {errorMessage ? <p className="error_message">{errorMessage}</p> : null}
+      {errorMessage ? <ErrorMessage>{errorMessage}</ErrorMessage> : null}
 
-      <form onSubmit={onSubmit}>
-        <div className="collumn">
+      <Form onSubmit={onSubmit}>
+        <Collumn>
           <label htmlFor="email">이메일</label>
           <input
             id="email"
             type="email"
             required
             placeholder="이메일을 입력하세요"
-            className="email"
             value={userInfo.email}
             onChange={onChangeInput}
           />
-        </div>
-        <div className="collumn">
+        </Collumn>
+        <Collumn>
           <label htmlFor="password">비밀번호</label>
           <input
             id="password"
             type="password"
             required
             placeholder="비밀번호를 입력하세요"
-            className="password"
             value={userInfo.password}
             onChange={onChangeInput}
           />
-        </div>
+        </Collumn>
         <input
           type="submit"
           value="이메일로 로그인"
           className="submit_button"
         />
-      </form>
-      <div className="link_wrapper">
+      </Form>
+      <LinkWrapper>
         <Link to={"/forgot-password"}>비밀번호 찾기</Link>
         <Link to={"/join"}>회원가입</Link>
-      </div>
-    </div>
+      </LinkWrapper>
+    </Wrapper>
   );
 };
 

@@ -1,5 +1,11 @@
 import { Link, useNavigate } from "react-router-dom";
-import "../components/AuthComponents.css";
+import {
+  Wrapper,
+  ErrorMessage,
+  Form,
+  Collumn,
+  LinkWrapper,
+} from "../components/AuthComponents";
 import loginErrorMsg from "../util/login_error_msg";
 import { useState } from "react";
 import { auth } from "../firebase";
@@ -48,14 +54,14 @@ const Join = () => {
   };
 
   return (
-    <div className="join">
+    <Wrapper>
       {isLoading ? <Loading /> : null}
       <div className="title">
         <h1>Tickets</h1>
       </div>
       <h2>회원가입</h2>
-      <form onSubmit={onSubmit}>
-        <div className="collumn">
+      <Form onSubmit={onSubmit}>
+        <Collumn>
           <label htmlFor="name">이름</label>
           <input
             id="name"
@@ -66,8 +72,8 @@ const Join = () => {
             value={userInfo.name}
             onChange={onChangeInput}
           />
-        </div>
-        <div className="collumn">
+        </Collumn>
+        <Collumn>
           <label htmlFor="email">이메일</label>
           <input
             id="email"
@@ -78,8 +84,8 @@ const Join = () => {
             value={userInfo.email}
             onChange={onChangeInput}
           />
-        </div>
-        <div className="collumn">
+        </Collumn>
+        <Collumn>
           <label htmlFor="password">비밀번호</label>
           <input
             id="password"
@@ -90,15 +96,15 @@ const Join = () => {
             value={userInfo.password}
             onChange={onChangeInput}
           />
-        </div>
-        {errorMessage ? <p className="error_message">{errorMessage}</p> : null}
+        </Collumn>
+        {errorMessage ? <ErrorMessage>{errorMessage}</ErrorMessage> : null}
 
         <input type="submit" value="회원가입" className="submit_button" />
-      </form>
-      <div className="link_wrapper">
+      </Form>
+      <LinkWrapper>
         <Link to={"/login"}>로그인</Link>
-      </div>
-    </div>
+      </LinkWrapper>
+    </Wrapper>
   );
 };
 
