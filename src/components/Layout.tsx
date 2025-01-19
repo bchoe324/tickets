@@ -1,5 +1,8 @@
 import { Link, Outlet } from "react-router-dom";
 import "./Layout.css";
+import ProfileIcon from "../assets/icons/ProfileIcon";
+import HomeIcon from "../assets/icons/HomeIcon";
+import TicketIcon from "../assets/icons/TicketIcon";
 
 const Layout = () => {
   return (
@@ -9,13 +12,22 @@ const Layout = () => {
         <nav>
           <ul>
             <li>
-              <Link to="/tickets">Tickets</Link>
+              <Link to="/tickets">
+                <TicketIcon fill="#fff" />
+                <span>티켓</span>
+              </Link>
             </li>
             <li>
-              <Link to="/home">Home</Link>
+              <Link to="/home">
+                <HomeIcon fill="#fff" />
+                <span>홈</span>
+              </Link>
             </li>
             <li>
-              <Link to="/mypage">My Page</Link>
+              <Link to="/mypage">
+                <ProfileIcon fill="#fff" />
+                <span>마이페이지</span>
+              </Link>
             </li>
           </ul>
         </nav>
