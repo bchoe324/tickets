@@ -29,12 +29,10 @@ const router = createBrowserRouter([
       {
         path: "tickets",
         element: <Tickets />,
-        children: [
-          {
-            path: "new",
-            element: <New />,
-          },
-        ],
+      },
+      {
+        path: "new",
+        element: <New />,
       },
       {
         path: "mypage",
