@@ -8,6 +8,7 @@ import MyPage from "./pages/MyPage";
 import Login from "./pages/Login";
 import Join from "./pages/Join";
 import Loading from "./components/Loading";
+import Detail from "./pages/Detail";
 import { useEffect, useState } from "react";
 import { auth } from "./firebase";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
       {
         path: "tickets",
         element: <Tickets />,
+      },
+      {
+        path: "tickets-detail/:id",
+        element: <Detail />,
       },
       {
         path: "new",

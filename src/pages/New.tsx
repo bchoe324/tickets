@@ -129,7 +129,7 @@ const New = () => {
   const [ticket, setTicket] = useState({
     title: "",
     image: "",
-    date: new Date(),
+    date: new Date().getTime(),
     cast: "",
     seat: "",
     price: "",
@@ -167,25 +167,21 @@ const New = () => {
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // 유효성 체크
-    if (!user || ticket.title === "" || !ticket.date) return;
+    if (!user || ticket.title === "" || !ticket.date || !file) return;
     try {
       setLoading(true);
       // ticket db에 저장
       // user 컬렉션 > uid 문서 > tickets 컬렉션
+      const locationRef = ref(storage, `${user.uid}/tickets/${ticketDoc.id}`);
+      const result = await uploadBytes(locationRef, file);
+      const uploadedUrl = await getDownloadURL(result.ref);
+
       const userDocRef = doc(db, "users", user.uid);
       const ticketsCollectionRef = collection(userDocRef, "tickets");
       const ticketDoc = await addDoc(ticketsCollectionRef, {
         ...ticket,
+        image: uploadedUrl,
       });
-      // file 있으면 이미지 업로드 후 url 저장 => db 업데이트
-      if (file) {
-        const locationRef = ref(storage, `${user.uid}/tickets/${ticketDoc.id}`);
-        const result = await uploadBytes(locationRef, file);
-        const uploadedUrl = await getDownloadURL(result.ref);
-        await updateDoc(ticketDoc, {
-          image: uploadedUrl,
-        });
-      }
     } catch (error) {
       console.error(error);
     } finally {
@@ -223,10 +219,11 @@ const New = () => {
                 )}
               </div>
             </label>
-            <input type="file" id="image" onChange={onChangeFile} />
+            <input required type="file" id="image" onChange={onChangeFile} />
           </div>
           <div className="title">
             <input
+              required
               type="text"
               id="title"
               placeholder="제목을 입력하세요"
@@ -238,9 +235,12 @@ const New = () => {
             <div className="date_picker">
               <DatePicker
                 showIcon
-                selected={ticket.date}
+                selected={new Date(ticket.date)}
                 onChange={(date) =>
-                  setTicket((prev) => ({ ...prev, date: date }))
+                  setTicket((prev) => ({
+                    ...prev,
+                    date: new Date(date).getTime(),
+                  }))
                 }
                 showTimeSelect
                 timeIntervals={30}
