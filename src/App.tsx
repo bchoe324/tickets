@@ -13,35 +13,42 @@ import { useEffect, useState } from "react";
 import { auth } from "./firebase";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ForgotPassword from "./pages/ForgotPassword";
+import Edit from "./pages/Edit";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: (
-      <ProtectedRoute>
-        <Layout />
-      </ProtectedRoute>
-    ),
+    element: <ProtectedRoute />,
     children: [
       {
-        path: "",
-        element: <Home />,
-      },
-      {
-        path: "tickets",
-        element: <Tickets />,
+        path: "tickets-new",
+        element: <New />,
       },
       {
         path: "tickets-detail/:id",
         element: <Detail />,
       },
       {
-        path: "new",
-        element: <New />,
+        path: "tickets-edit/:id",
+        element: <Edit />,
       },
       {
-        path: "mypage",
-        element: <MyPage />,
+        path: "",
+        element: <Layout />,
+        children: [
+          {
+            path: "",
+            element: <Home />,
+          },
+          {
+            path: "tickets",
+            element: <Tickets />,
+          },
+          {
+            path: "mypage",
+            element: <MyPage />,
+          },
+        ],
       },
     ],
   },
