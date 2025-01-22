@@ -1,5 +1,4 @@
 import { replace, useNavigate } from "react-router-dom";
-import styled from "styled-components";
 import PrevIcon from "../assets/icons/PrevIcon";
 import { useState } from "react";
 import DatePicker from "react-datepicker";
@@ -8,119 +7,7 @@ import { auth, db, storage } from "../firebase";
 import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
 import Loading from "../components/Loading";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-
-const Wrapper = styled.div`
-  width: 100%;
-  height: 100%;
-`;
-
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-`;
-
-const Header = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 10px;
-  border-bottom: 1px solid #999;
-  margin-bottom: 40px;
-  font-size: 18px;
-  h2 {
-    font-weight: 500;
-  }
-  button {
-    cursor: pointer;
-    padding: 0;
-    background: none;
-    border: 0 none;
-    svg {
-      height: 32px;
-    }
-    &:hover,
-    &:active {
-      opacity: 0.8;
-    }
-  }
-  input {
-    border: 0 none;
-    background: none;
-    color: #813dff;
-    cursor: pointer;
-    &:hover,
-    &:active {
-      color: #6002ee;
-    }
-  }
-`;
-
-const Content = styled.div`
-  > div {
-    padding: 20px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    &:nth-child(n + 4) {
-      border-top: 1px solid #ccc;
-    }
-  }
-  label {
-    flex: 1 1 40px;
-  }
-  input {
-    flex: 4 1 40px;
-    border: 0 none;
-    &:focus {
-      outline: none;
-    }
-  }
-  .image {
-    label {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-    input {
-      display: none;
-    }
-    .preview {
-      width: 48px;
-      height: 48px;
-      svg,
-      img {
-        width: 100%;
-        height: auto;
-      }
-    }
-  }
-  .title input {
-    font-size: 18px;
-    font-weight: 500;
-  }
-  .date_picker {
-    flex: 4 1 40px;
-    .react-datepicker-wrapper {
-      width: 100%;
-    }
-    .react-datepicker__input-container {
-      display: flex;
-      align-items: center;
-      svg {
-        padding: 0;
-      }
-    }
-  }
-  .review {
-    flex-direction: column;
-    align-items: flex-start;
-    textarea {
-      width: 100%;
-      resize: none;
-    }
-  }
-`;
+import { Wrapper, Header, Content } from "../components/TicketInfoComponents";
 
 const New = () => {
   const nav = useNavigate();
@@ -198,9 +85,9 @@ const New = () => {
 
   return (
     <Wrapper>
-      <Form onSubmit={onSubmit}>
+      <form className="content" onSubmit={onSubmit}>
         <Header>
-          <button onClick={() => nav("../")}>
+          <button className="button" onClick={() => nav(-1)}>
             <PrevIcon fill="#333" />
           </button>
           <h2>새 일정 추가</h2>
@@ -250,7 +137,7 @@ const New = () => {
                 }
                 showTimeSelect
                 timeIntervals={30}
-                dateFormat="yyyy년 MM월 dd일 hh시 mm분"
+                dateFormat="yyyy년 MM월 dd일 HH시 mm분"
               />
             </div>
           </div>
@@ -308,7 +195,7 @@ const New = () => {
             ></textarea>
           </div>
         </Content>
-      </Form>
+      </form>
       {isLoading ? <Loading /> : null}
     </Wrapper>
   );
