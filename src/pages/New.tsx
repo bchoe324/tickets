@@ -11,7 +11,7 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 const Wrapper = styled.div`
   width: 100%;
-  height: 100vh;
+  height: 100%;
 `;
 
 const Form = styled.form`
@@ -130,10 +130,12 @@ const New = () => {
     title: "",
     image: "",
     date: new Date().getTime(),
+    theater: "",
     cast: "",
     seat: "",
     price: "",
     site: "",
+    review: "",
   });
   const [preview, setPreview] = useState("");
   const [file, setFile] = useState<File | null>(null);
@@ -172,14 +174,18 @@ const New = () => {
       setLoading(true);
       // ticket db에 저장
       // user 컬렉션 > uid 문서 > tickets 컬렉션
-      const locationRef = ref(storage, `${user.uid}/tickets/${ticketDoc.id}`);
-      const result = await uploadBytes(locationRef, file);
-      const uploadedUrl = await getDownloadURL(result.ref);
 
       const userDocRef = doc(db, "users", user.uid);
       const ticketsCollectionRef = collection(userDocRef, "tickets");
       const ticketDoc = await addDoc(ticketsCollectionRef, {
         ...ticket,
+      });
+
+      // image 업로드 후 doc 업데이트
+      const locationRef = ref(storage, `${user.uid}/tickets/${ticketDoc.id}`);
+      const result = await uploadBytes(locationRef, file);
+      const uploadedUrl = await getDownloadURL(result.ref);
+      await updateDoc(ticketDoc, {
         image: uploadedUrl,
       });
     } catch (error) {

@@ -72,8 +72,8 @@ const DateCell = ({
           format(new Date(date), "MMdd")
         ) {
           return (
-            <TicketWrapper>
-              <Link to={`tickets-detail/${ticket.id}`}>
+            <TicketWrapper key={ticket.id}>
+              <Link to={`/tickets-detail/${ticket.id}`}>
                 <img src={ticket.image} />
               </Link>
             </TicketWrapper>

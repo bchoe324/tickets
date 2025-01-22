@@ -11,7 +11,7 @@ import {
   startOfMonth,
 } from "date-fns";
 import { createContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import { collection, doc, getDocs, query, where } from "firebase/firestore";
 import { auth, db } from "../firebase";
 
@@ -43,14 +43,16 @@ const Header = styled.div`
   }
 `;
 
-interface ITicket {
+export interface ITicket {
   title: string;
   image: string;
   date: number;
   cast: string;
+  theater: string;
   seat: string;
   price: string;
   site: string;
+  review: string;
   id: string;
 }
 
@@ -58,6 +60,9 @@ export interface CalendarTicketProps
   extends Pick<ITicket, "title" | "image" | "date" | "id"> {}
 
 export const MonthlyTicketsContext = createContext<CalendarTicketProps[]>([]);
+
+// TODO
+// [ ] 같은 날짜에 여러개 등록하는 경우 => 시간순으로 & 클릭하면 리스트로
 
 const Tickets = () => {
   // 월별 티켓
@@ -104,27 +109,29 @@ const Tickets = () => {
   }, []);
 
   return (
-    <Wrapper>
-      <Header>
-        <div className="left">
-          <button onClick={prevMonth} className="button">
-            <PrevIcon fill="#333" />
-          </button>
-          <h2>{format(pivotDate, "yyyy년 MM월")}</h2>
-          <button onClick={nextMonth} className="button">
-            <NextIcon fill="#333" />
-          </button>
-        </div>
-        <div className="right">
-          <Link to="/new" className="button">
-            <img src={addTicket} />
-          </Link>
-        </div>
-      </Header>
-      <MonthlyTicketsContext.Provider value={tickets}>
-        <Calendar pivotDate={pivotDate} />
-      </MonthlyTicketsContext.Provider>
-    </Wrapper>
+    <>
+      <Wrapper>
+        <Header>
+          <div className="left">
+            <button onClick={prevMonth} className="button">
+              <PrevIcon fill="#333" />
+            </button>
+            <h2>{format(pivotDate, "yyyy년 MM월")}</h2>
+            <button onClick={nextMonth} className="button">
+              <NextIcon fill="#333" />
+            </button>
+          </div>
+          <div className="right">
+            <Link to="/tickets-new" className="button">
+              <img src={addTicket} />
+            </Link>
+          </div>
+        </Header>
+        <MonthlyTicketsContext.Provider value={tickets}>
+          <Calendar pivotDate={pivotDate} />
+        </MonthlyTicketsContext.Provider>
+      </Wrapper>
+    </>
   );
 };
 
