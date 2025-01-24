@@ -24,7 +24,7 @@ const Layout = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/home">
+                <Link to="/">
                   <HomeIcon fill="#fff" />
                   <span>홈</span>
                 </Link>

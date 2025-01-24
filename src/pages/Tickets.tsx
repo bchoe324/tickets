@@ -15,9 +15,7 @@ import { Link, Outlet } from "react-router-dom";
 import { collection, doc, getDocs, query, where } from "firebase/firestore";
 import { auth, db } from "../firebase";
 
-const Wrapper = styled.div`
-  padding: 62px 0 78px;
-`;
+const Wrapper = styled.div``;
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
