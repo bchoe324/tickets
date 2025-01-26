@@ -35,6 +35,10 @@ const Profile = styled.div`
       object-fit: cover;
       object-position: center;
     }
+    img {
+      border-radius: 50%;
+      border: 1px solid #999;
+    }
   }
   .name {
     .display_name {

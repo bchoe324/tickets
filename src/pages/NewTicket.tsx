@@ -9,7 +9,7 @@ import Loading from "../components/Loading";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { Wrapper, Header, Content } from "../components/TicketInfoComponents";
 
-const New = () => {
+const NewTicket = () => {
   const nav = useNavigate();
   const user = auth.currentUser;
   const [isLoading, setLoading] = useState(false);
@@ -201,4 +201,4 @@ const New = () => {
   );
 };
 
-export default New;
+export default NewTicket;

@@ -3,7 +3,7 @@ import "./App.css";
 import Layout from "./components/Layout";
 import Home from "./pages/Home";
 import Tickets from "./pages/Tickets";
-import New from "./pages/New";
+import NewTicket from "./pages/NewTicket";
 import MyPage from "./pages/MyPage";
 import Login from "./pages/Login";
 import Join from "./pages/Join";
@@ -14,6 +14,10 @@ import { auth } from "./firebase";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ForgotPassword from "./pages/ForgotPassword";
 import Edit from "./pages/Edit";
+import Reviews from "./components/Reviews";
+import NewReview from "./pages/NewReview";
+import SelectPerformance from "./components/SelectPerformance";
+import ReviewForm from "./components/ReviewForm";
 
 const router = createBrowserRouter([
   {
@@ -22,7 +26,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "tickets-new",
-        element: <New />,
+        element: <NewTicket />,
       },
       {
         path: "tickets-detail/:id",
@@ -33,12 +37,32 @@ const router = createBrowserRouter([
         element: <Edit />,
       },
       {
+        path: "new-review",
+        element: <NewReview />,
+        children: [
+          {
+            path: "",
+            element: <SelectPerformance />,
+          },
+          {
+            path: "write",
+            element: <ReviewForm />,
+          },
+        ],
+      },
+      {
         path: "",
         element: <Layout />,
         children: [
           {
             path: "",
             element: <Home />,
+            children: [
+              {
+                path: "reviews",
+                element: <Reviews />,
+              },
+            ],
           },
           {
             path: "tickets",

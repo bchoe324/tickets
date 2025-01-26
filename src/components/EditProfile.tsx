@@ -37,6 +37,10 @@ const Wrapper = styled.div`
           object-position: center;
           display: block;
         }
+        img {
+          border: 1px solid #999;
+          border-radius: 50%;
+        }
       }
     }
     input {
