@@ -66,6 +66,9 @@ const Profile = styled.div`
   }
 `;
 
+// TODO
+// [ ] 내가 쓴 리뷰 보기 => 수정, 삭제
+
 const MyPage = () => {
   const user = auth.currentUser;
   const { isOpen, openModal, closeModal } = useModal();

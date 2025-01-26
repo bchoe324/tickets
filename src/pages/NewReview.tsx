@@ -66,6 +66,8 @@ const Content = styled.div``;
 
 export interface Review {
   performanceId: string;
+  title: string;
+  poster: string;
   uid: string;
   createdAt: number;
   recommend: boolean;

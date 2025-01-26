@@ -4,6 +4,7 @@ header .title {
   max-width: 600px;
   height: 62px;
   position: fixed;
+  z-index: 10;
   top: 0;
   left: 50%;
   transform: translateX(-50%);
@@ -21,6 +22,7 @@ nav {
   max-width: 600px;
   height: 78px;
   position: fixed;
+  z-index: 10;
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);

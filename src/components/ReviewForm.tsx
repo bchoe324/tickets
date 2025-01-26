@@ -126,7 +126,7 @@ const ReviewForm = () => {
     setSelectedId(e.target.id);
     setReview((prev) => ({
       ...prev,
-      recommend: Boolean(e.target.value),
+      recommend: Boolean(Number(e.target.value)),
     }));
   };
 
@@ -151,6 +151,8 @@ const ReviewForm = () => {
       uid: user.uid,
       createdAt: Date.now(),
       performanceId: performance.id,
+      title: performance.title,
+      poster: performance.poster,
     };
     setReview(updatedReview);
     try {

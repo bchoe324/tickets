@@ -84,7 +84,7 @@ const Ranks = () => {
           ranks.map((item, index) => {
             if (index < 10) {
               return (
-                <SwiperSlide>
+                <SwiperSlide key={item.mt20id}>
                   <span className="rank">{index + 1}</span>
                   <img className="poster" src={item.poster} />
                 </SwiperSlide>

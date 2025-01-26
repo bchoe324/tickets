@@ -8,6 +8,12 @@ const Wrapper = styled.div`
     &.ranks {
       padding-right: 0;
     }
+    &.reviews {
+      padding: 20px 0 60px;
+      h2 {
+        padding: 0 20px;
+      }
+    }
     h2 {
       font-size: 18px;
       font-weight: 600;
