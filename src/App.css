@@ -131,6 +131,7 @@ img {
   margin: 0 auto;
   background-color: #fff;
   box-shadow: rgba(000, 000, 000, 0.1) 0px 0px 25px 0px;
+  display: flex;
 }
 
 #root > div {

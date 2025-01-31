@@ -82,7 +82,6 @@ const Login = () => {
         />
       </Form>
       <LinkWrapper>
-        <Link to={"/forgot-password"}>비밀번호 찾기</Link>
         <Link to={"/join"}>회원가입</Link>
       </LinkWrapper>
     </Wrapper>

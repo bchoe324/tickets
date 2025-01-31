@@ -18,10 +18,12 @@ import ToggleText from "../components/ToggleText";
 import Loading from "../components/Loading";
 import { format } from "date-fns";
 import ActionMenu from "../components/ActionMenu";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import EditIcon from "../assets/icons/EditIcon";
 import DeleteIcon from "../assets/icons/DeleteIcon";
+import plusIcon from "../assets/icons/plus.svg";
 import Header from "../components/Header";
+import NoContents from "../components/NoContents";
 
 const Wrapper = styled.div``;
 
@@ -114,6 +116,27 @@ const Content = styled.div`
   }
 `;
 
+const FloatingButton = styled.div`
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #813dff;
+  a {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img {
+      width: 36px;
+      height: 36px;
+    }
+  }
+`;
+
 interface MyReviews extends Review {
   id: string;
 }
@@ -179,7 +202,9 @@ const MyReview = () => {
       {isLoading ? <Loading /> : null}
       <Header center={"내 리뷰"} />
       <Content>
-        {reviews &&
+        {!reviews.length ? (
+          <NoContents text={<p>작성한 리뷰가 없습니다.</p>} />
+        ) : (
           reviews.map((review) => (
             <div className="item" key={review.id}>
               <ActionMenu
@@ -223,8 +248,14 @@ const MyReview = () => {
                 {format(review.createdAt, "yyyy. MM. dd")}
               </div>
             </div>
-          ))}
+          ))
+        )}
       </Content>
+      <FloatingButton>
+        <Link to="/new-review">
+          <img src={plusIcon} alt="" />
+        </Link>
+      </FloatingButton>
     </Wrapper>
   );
 };

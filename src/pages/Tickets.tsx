@@ -11,7 +11,7 @@ import {
   startOfMonth,
 } from "date-fns";
 import { createContext, useEffect, useState } from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { collection, doc, getDocs, query, where } from "firebase/firestore";
 import { auth, db } from "../firebase";
 
@@ -120,7 +120,7 @@ const Tickets = () => {
             </button>
           </div>
           <div className="right">
-            <Link to="/tickets-new" className="button">
+            <Link to="/tickets/new" className="button">
               <img src={addTicket} />
             </Link>
           </div>

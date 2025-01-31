@@ -4,8 +4,11 @@ import { auth } from "../firebase";
 import useModal from "../hooks/useModal";
 import Modal from "../components/Modal";
 import EditProfile from "../components/EditProfile";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import NextIcon from "../assets/icons/NextIcon";
+import { signOut } from "firebase/auth";
+import { useState } from "react";
+import Loading from "../components/Loading";
 
 const Wrapper = styled.div``;
 const Profile = styled.div`
@@ -83,14 +86,41 @@ const Content = styled.div`
       height: 32px;
     }
   }
+  .logout {
+    color: #999;
+    cursor: pointer;
+    background: none;
+    border: 0;
+    margin-top: 10px;
+    padding: 10px 20px;
+    text-align: left;
+  }
 `;
 
 const MyPage = () => {
   const user = auth.currentUser;
+  const nav = useNavigate();
   const { isOpen, openModal, closeModal } = useModal();
+  const [isLoading, setLoading] = useState(false);
+
+  const onLoggingOut = async () => {
+    const isConfirmed = confirm("정말 로그아웃하시겠습니까?");
+
+    if (!isConfirmed) return;
+    try {
+      setLoading(true);
+      signOut(auth);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+      nav("/login");
+    }
+  };
 
   return (
     <Wrapper>
+      {isLoading ? <Loading /> : null}
       <Profile>
         <div className="image collumn left">
           {user?.photoURL ? (
@@ -112,6 +142,9 @@ const MyPage = () => {
           <span>내가 쓴 리뷰</span>
           <NextIcon fill="#333" />
         </Link>
+        <button onClick={onLoggingOut} className="logout">
+          로그아웃
+        </button>
       </Content>
       {/* 프로필 수정 모달 */}
       {isOpen("edit-profile") ? (
