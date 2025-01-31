@@ -41,17 +41,6 @@ const Content = styled.div`
       position: absolute;
       right: 10px;
       top: 10px;
-      span {
-        display: inline-flex;
-        align-items: center;
-        &.delete_button {
-          color: #ff5252;
-        }
-      }
-      svg {
-        margin-right: 5px;
-        width: 18px;
-      }
     }
     .poster {
       position: relative;

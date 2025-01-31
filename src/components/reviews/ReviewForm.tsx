@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import styled from "styled-components";
-import ThumbDownIcon from "../assets/icons/ThumbDownIcon";
-import ThumbUpIcon from "../assets/icons/ThumbUpIcon";
-import { Review } from "../pages/NewReview";
+import ThumbDownIcon from "../../assets/icons/ThumbDownIcon";
+import ThumbUpIcon from "../../assets/icons/ThumbUpIcon";
+import { Review } from "../../pages/NewReview";
 
 const Form = styled.form`
   padding: 0 20px;

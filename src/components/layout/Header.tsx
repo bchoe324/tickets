@@ -1,8 +1,9 @@
 import styled from "styled-components";
-import PrevIcon from "../assets/icons/PrevIcon";
+import PrevIcon from "../../assets/icons/PrevIcon";
 import { useNavigate } from "react-router-dom";
 
 const Wrapper = styled.header`
+  position: relative;
   height: 62px;
   padding: 20px;
   border-bottom: 1px solid #999;

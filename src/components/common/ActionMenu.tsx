@@ -28,10 +28,23 @@ const Wrapper = styled.div`
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     overflow: hidden;
     .menu_item {
+      cursor: pointer;
       padding: 10px 20px;
       white-space: nowrap;
+      font-size: 16px;
       &:hover {
         background-color: rgba(0, 0, 0, 0.1);
+      }
+      > * {
+        display: inline-flex;
+        align-items: center;
+        &.delete_button {
+          color: #ff5252;
+        }
+      }
+      svg {
+        margin-right: 5px;
+        width: 18px;
       }
     }
   }

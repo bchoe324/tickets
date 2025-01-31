@@ -1,25 +1,16 @@
 import { collection, deleteDoc, doc, getDoc } from "firebase/firestore";
-import { useParams, Link, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { auth, db, storage } from "../firebase";
 import { useEffect, useState } from "react";
-import PrevIcon from "../assets/icons/PrevIcon";
 import { format } from "date-fns";
 import { ITicket } from "./Tickets";
 import DeleteIcon from "../assets/icons/DeleteIcon";
 import EditIcon from "../assets/icons/EditIcon";
 import Loading from "../components/common/Loading";
 import { deleteObject, ref } from "firebase/storage";
-import {
-  Wrapper,
-  Header,
-  Content,
-} from "../components/tickets/TicketInfoComponents";
-
-// TODO
-// [x] 아이디로 문서 찾아서 불러오기
-// [x] 디자인은 추가, 수정, 디테일 다 비슷할듯 컴포넌트로 분리?
-// [x] 수정, 삭제 버튼
-// [ ] confirm, alert 커스텀
+import { Wrapper, Content } from "../components/tickets/TicketInfoComponents";
+import Header from "../components/layout/Header";
+import ActionMenu from "../components/common/ActionMenu";
 
 const Detail = () => {
   const [isLoading, setLoading] = useState(false);
@@ -91,21 +82,31 @@ const Detail = () => {
   return (
     <Wrapper>
       <div className="content">
-        <Header>
-          <div className="left">
-            <button className="button" onClick={() => nav(-1)}>
-              <PrevIcon fill="#333" />
-            </button>
-          </div>
-          <div className="right">
-            <Link className="button" to={`/tickets/edit/${docId}`}>
-              <EditIcon fill="#333" />
-            </Link>
-            <button className="button" onClick={onDelete}>
-              <DeleteIcon fill="#FF5252" />
-            </button>
-          </div>
-        </Header>
+        <Header
+          right={
+            <ActionMenu
+              items={[
+                {
+                  element: (
+                    <span>
+                      <EditIcon fill="#333" />
+                      기록 수정하기
+                    </span>
+                  ),
+                  onClick: () => nav(`/tickets/edit/${docId}`),
+                },
+                {
+                  element: (
+                    <span className="delete_button">
+                      <DeleteIcon fill="#FF5252" /> 리뷰 삭제하기
+                    </span>
+                  ),
+                  onClick: () => onDelete(),
+                },
+              ]}
+            />
+          }
+        />
         <Content>
           <div className="image">
             <img src={ticket.image} />

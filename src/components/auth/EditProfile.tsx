@@ -1,11 +1,11 @@
-import { auth, storage } from "../firebase";
+import { auth, storage } from "../..//firebase";
 import { updateProfile } from "firebase/auth";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { useState } from "react";
-import useModal from "../hooks/useModal";
-import ProfileIcon from "../assets/icons/ProfileIcon";
+import useModal from "../../hooks/useModal";
+import ProfileIcon from "../../assets/icons/ProfileIcon";
 import styled from "styled-components";
-import Loading from "./common/Loading";
+import Loading from "../common/Loading";
 
 const Wrapper = styled.div`
   form {

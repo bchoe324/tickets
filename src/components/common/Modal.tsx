@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import CloseIcon from "../assets/icons/CloseIcon";
+import CloseIcon from "../../assets/icons/CloseIcon";
 
 const Wrapper = styled.div``;
 const Background = styled.div`

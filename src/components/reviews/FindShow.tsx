@@ -1,10 +1,10 @@
-import xmlToJson from "../util/xmlToJson";
+import xmlToJson from "../../util/xmlToJson";
 import { useState } from "react";
 import { format } from "date-fns";
 import styled from "styled-components";
-import Loading from "./common/Loading";
+import Loading from "../common/Loading";
 import { useNavigate } from "react-router-dom";
-import { Review } from "../pages/NewReview";
+import { Review } from "../../pages/NewReview";
 
 const apikey = import.meta.env.VITE_KOPIS_API_KEY;
 

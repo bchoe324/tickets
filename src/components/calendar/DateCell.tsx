@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { format, getMonth } from "date-fns";
 import { useState, useRef, useEffect, useContext } from "react";
-import { MonthlyTicketsContext } from "../pages/Tickets";
+import { MonthlyTicketsContext } from "../../pages/Tickets";
 import { Link } from "react-router-dom";
 
 const Wrapper = styled.div`

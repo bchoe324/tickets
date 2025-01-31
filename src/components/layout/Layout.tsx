@@ -1,8 +1,8 @@
 import { Link, Outlet } from "react-router-dom";
 import "./Layout.css";
-import ProfileIcon from "../assets/icons/ProfileIcon";
-import HomeIcon from "../assets/icons/HomeIcon";
-import TicketIcon from "../assets/icons/TicketIcon";
+import ProfileIcon from "../../assets/icons/ProfileIcon";
+import HomeIcon from "../../assets/icons/HomeIcon";
+import TicketIcon from "../../assets/icons/TicketIcon";
 
 // TODO
 // [ ] 페이지 활성화 표시
