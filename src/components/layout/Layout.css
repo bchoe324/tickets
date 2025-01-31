@@ -51,13 +51,22 @@ nav li a {
   align-items: center;
 }
 
-nav li a span {
+nav li a.active span {
   color: #fff;
+}
+
+nav li a.active svg {
+  fill: #fff;
+}
+
+nav li a span {
+  color: #ccc;
   font-size: 12px;
   margin-top: 5px;
 }
 
 nav li a svg {
+  fill: #ccc;
   height: 24px;
 }
 

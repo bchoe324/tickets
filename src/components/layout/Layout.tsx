@@ -1,4 +1,4 @@
-import { Link, Outlet } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 import "./Layout.css";
 import ProfileIcon from "../../assets/icons/ProfileIcon";
 import HomeIcon from "../../assets/icons/HomeIcon";
@@ -15,22 +15,22 @@ const Layout = () => {
         <nav>
           <ul>
             <li>
-              <Link to="/tickets">
-                <TicketIcon fill="#fff" />
+              <NavLink to="/tickets">
+                <TicketIcon fill="currentColor" />
                 <span>티켓</span>
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link to="/">
-                <HomeIcon fill="#fff" />
+              <NavLink to="/">
+                <HomeIcon fill="currentColor" />
                 <span>홈</span>
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link to="/mypage">
-                <ProfileIcon fill="#fff" />
+              <NavLink to="/mypage">
+                <ProfileIcon fill="currentColor" />
                 <span>마이페이지</span>
-              </Link>
+              </NavLink>
             </li>
           </ul>
         </nav>

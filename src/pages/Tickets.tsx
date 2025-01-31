@@ -55,7 +55,10 @@ export interface ITicket {
 }
 
 export interface CalendarTicketProps
-  extends Pick<ITicket, "title" | "image" | "date" | "id"> {}
+  extends Pick<
+    ITicket,
+    "title" | "image" | "date" | "id" | "theater" | "cast" | "seat"
+  > {}
 
 export const MonthlyTicketsContext = createContext<CalendarTicketProps[]>([]);
 
@@ -91,11 +94,14 @@ const Tickets = () => {
 
     const querySnapshot = await getDocs(q);
     const ticketsArr = querySnapshot.docs.map((doc) => {
-      const { image, title, date } = doc.data();
+      const { image, title, date, theater, cast, seat } = doc.data();
       return {
         image,
         title,
         date,
+        theater,
+        cast,
+        seat,
         id: doc.id,
       };
     });
@@ -104,7 +110,7 @@ const Tickets = () => {
 
   useEffect(() => {
     fetchTickets();
-  }, []);
+  }, [pivotDate]);
 
   return (
     <>
