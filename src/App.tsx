@@ -1,23 +1,20 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
-import Layout from "./components/Layout";
+import Layout from "./components/layout/Layout";
 import Home from "./pages/Home";
 import Tickets from "./pages/Tickets";
 import NewTicket from "./pages/NewTicket";
 import MyPage from "./pages/MyPage";
 import Login from "./pages/Login";
 import Join from "./pages/Join";
-import Loading from "./components/Loading";
+import Loading from "./components/common/Loading";
 import Detail from "./pages/Detail";
 import { useEffect, useState } from "react";
 import { auth } from "./firebase";
-import ProtectedRoute from "./components/ProtectedRoute";
+import ProtectedRoute from "./components/layout/ProtectedRoute";
 import ForgotPassword from "./pages/ForgotPassword";
 import Edit from "./pages/Edit";
-import Reviews from "./components/Reviews";
 import NewReview from "./pages/NewReview";
-import SelectPerformance from "./components/FindShow";
-import ReviewForm from "./components/ReviewForm";
 import MyReview from "./pages/MyReview";
 import EditReview from "./pages/EditReview";
 
@@ -77,10 +74,6 @@ const router = createBrowserRouter([
   {
     path: "/join",
     element: <Join />,
-  },
-  {
-    path: "/forgot-password",
-    element: <ForgotPassword />,
   },
 ]);
 

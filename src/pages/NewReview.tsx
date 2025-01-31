@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import FindShow from "../components/FindShow";
-import ReviewForm from "../components/ReviewForm";
-import Header from "../components/Header";
-import Loading from "../components/Loading";
+import FindShow from "../components/reviews/FindShow";
+import ReviewForm from "../components/reviews/ReviewForm";
+import Header from "../components/layout/Header";
+import Loading from "../components/common/Loading";
 import { addDoc, collection } from "firebase/firestore";
 import { auth, db } from "../firebase";
 import { useNavigate } from "react-router-dom";

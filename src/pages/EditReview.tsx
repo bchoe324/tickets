@@ -4,9 +4,9 @@ import { auth, db } from "../firebase";
 import { Review } from "./NewReview";
 import { doc, getDoc, updateDoc, collection } from "firebase/firestore";
 import styled from "styled-components";
-import Loading from "../components/Loading";
-import Header from "../components/Header";
-import ReviewForm from "../components/ReviewForm";
+import Loading from "../components/common/Loading";
+import Header from "../components/layout/Header";
+import ReviewForm from "../components//reviews/ReviewForm";
 
 const apikey = import.meta.env.VITE_KOPIS_API_KEY;
 

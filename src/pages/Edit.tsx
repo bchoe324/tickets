@@ -6,9 +6,13 @@ import "react-datepicker/dist/react-datepicker.css";
 import { auth, db, storage } from "../firebase";
 import { collection, doc, updateDoc, getDoc } from "firebase/firestore";
 import { ITicket } from "./Tickets";
-import Loading from "../components/Loading";
+import Loading from "../components/common/Loading";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { Wrapper, Header, Content } from "../components/TicketInfoComponents";
+import {
+  Wrapper,
+  Header,
+  Content,
+} from "../components/tickets/TicketInfoComponents";
 
 // TODO
 // [ ] new, edit 페이지 form 컴포넌트로 분리

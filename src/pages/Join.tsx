@@ -5,12 +5,12 @@ import {
   Form,
   Collumn,
   LinkWrapper,
-} from "../components/AuthComponents";
+} from "../components/auth/AuthComponents";
 import loginErrorMsg from "../util/login_error_msg";
 import { useState } from "react";
 import { auth } from "../firebase";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import Loading from "../components/Loading";
+import Loading from "../components/common/Loading";
 
 const Join = () => {
   const [isLoading, setLoading] = useState(false);

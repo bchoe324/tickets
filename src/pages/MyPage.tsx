@@ -2,13 +2,13 @@ import styled from "styled-components";
 import ProfileIcon from "../assets/icons/ProfileIcon";
 import { auth } from "../firebase";
 import useModal from "../hooks/useModal";
-import Modal from "../components/Modal";
-import EditProfile from "../components/EditProfile";
+import Modal from "../components/common/Modal";
+import EditProfile from "../components/auth/EditProfile";
 import { Link, useNavigate } from "react-router-dom";
 import NextIcon from "../assets/icons/NextIcon";
 import { signOut } from "firebase/auth";
 import { useState } from "react";
-import Loading from "../components/Loading";
+import Loading from "../components/common/Loading";
 
 const Wrapper = styled.div``;
 const Profile = styled.div`

@@ -4,10 +4,10 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { auth, db, storage } from "../firebase";
 import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
-import Loading from "../components/Loading";
+import Loading from "../components/common/Loading";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { Wrapper, Content } from "../components/TicketInfoComponents";
-import Header from "../components/Header";
+import { Wrapper, Content } from "../components/tickets/TicketInfoComponents";
+import Header from "../components/layout/Header";
 
 const NewTicket = () => {
   const nav = useNavigate();

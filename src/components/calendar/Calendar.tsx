@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import getCalendarDays from "../util/getCalendarDays";
-import { useEffect, useRef, useState } from "react";
+import getCalendarDays from "../../util/getCalendarDays";
 import DateCell from "./DateCell";
 
 const Wrapper = styled.div`

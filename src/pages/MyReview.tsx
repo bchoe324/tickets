@@ -14,16 +14,16 @@ import {
 import { Review } from "./NewReview";
 import ThumbUpIcon from "../assets/icons/ThumbUpIcon";
 import ThumbDownIcon from "../assets/icons/ThumbDownIcon";
-import ToggleText from "../components/ToggleText";
-import Loading from "../components/Loading";
+import ToggleText from "../components/common/ToggleText";
+import Loading from "../components/common/Loading";
 import { format } from "date-fns";
-import ActionMenu from "../components/ActionMenu";
+import ActionMenu from "../components/common/ActionMenu";
 import { Link, useNavigate } from "react-router-dom";
 import EditIcon from "../assets/icons/EditIcon";
 import DeleteIcon from "../assets/icons/DeleteIcon";
 import plusIcon from "../assets/icons/plus.svg";
-import Header from "../components/Header";
-import NoContents from "../components/NoContents";
+import Header from "../components/layout/Header";
+import NoContents from "../components/common/NoContents";
 
 const Wrapper = styled.div``;
 

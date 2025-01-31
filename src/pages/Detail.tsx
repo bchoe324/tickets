@@ -7,9 +7,13 @@ import { format } from "date-fns";
 import { ITicket } from "./Tickets";
 import DeleteIcon from "../assets/icons/DeleteIcon";
 import EditIcon from "../assets/icons/EditIcon";
-import Loading from "../components/Loading";
+import Loading from "../components/common/Loading";
 import { deleteObject, ref } from "firebase/storage";
-import { Wrapper, Header, Content } from "../components/TicketInfoComponents";
+import {
+  Wrapper,
+  Header,
+  Content,
+} from "../components/tickets/TicketInfoComponents";
 
 // TODO
 // [x] 아이디로 문서 찾아서 불러오기

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Calendar from "../components/Calendar";
+import Calendar from "../components/calendar/Calendar";
 import PrevIcon from "../assets/icons/PrevIcon";
 import NextIcon from "../assets/icons/NextIcon";
 import addTicket from "../assets/icons/add_ticket.svg";

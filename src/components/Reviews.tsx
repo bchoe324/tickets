@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { Review } from "../pages/NewReview";
 import ThumbUpIcon from "../assets/icons/ThumbUpIcon";
 import ThumbDownIcon from "../assets/icons/ThumbDownIcon";
-import ToggleText from "./ToggleText";
+import ToggleText from "./common/ToggleText";
 import getRelativeTime from "../util/getRelativeTime";
 
 const Wrapper = styled.section`

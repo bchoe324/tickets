@@ -2,6 +2,9 @@ import styled from "styled-components";
 
 export const Wrapper = styled.div`
   max-width: 400px;
+  width: 100%;
+  height: 100%;
+  margin: auto;
   .title {
     margin-bottom: 80px;
     text-align: center;
@@ -46,7 +49,7 @@ export const Form = styled.form`
       outline: 1px solid #5157da;
     }
 
-    .submit_button {
+    &.submit_button {
       cursor: pointer;
       color: #fff;
       background-color: #5d6de5;
@@ -71,7 +74,7 @@ export const Collumn = styled.div`
 
 export const LinkWrapper = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   margin-top: 15px;
 `;

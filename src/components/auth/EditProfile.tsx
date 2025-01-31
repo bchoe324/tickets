@@ -5,7 +5,7 @@ import { useState } from "react";
 import useModal from "../hooks/useModal";
 import ProfileIcon from "../assets/icons/ProfileIcon";
 import styled from "styled-components";
-import Loading from "./Loading";
+import Loading from "./common/Loading";
 
 const Wrapper = styled.div`
   form {
