@@ -73,7 +73,7 @@ const DateCell = ({
         ) {
           return (
             <TicketWrapper key={ticket.id}>
-              <Link to={`/tickets-detail/${ticket.id}`}>
+              <Link to={`/tickets/detail/${ticket.id}`}>
                 <img src={ticket.image} />
               </Link>
             </TicketWrapper>

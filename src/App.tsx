@@ -16,8 +16,10 @@ import ForgotPassword from "./pages/ForgotPassword";
 import Edit from "./pages/Edit";
 import Reviews from "./components/Reviews";
 import NewReview from "./pages/NewReview";
-import SelectPerformance from "./components/SelectPerformance";
+import SelectPerformance from "./components/FindShow";
 import ReviewForm from "./components/ReviewForm";
+import MyReview from "./pages/MyReview";
+import EditReview from "./pages/EditReview";
 
 const router = createBrowserRouter([
   {
@@ -25,30 +27,28 @@ const router = createBrowserRouter([
     element: <ProtectedRoute />,
     children: [
       {
-        path: "tickets-new",
+        path: "tickets/new",
         element: <NewTicket />,
       },
       {
-        path: "tickets-detail/:id",
+        path: "tickets/detail/:id",
         element: <Detail />,
       },
       {
-        path: "tickets-edit/:id",
+        path: "tickets/edit/:id",
         element: <Edit />,
       },
       {
         path: "new-review",
         element: <NewReview />,
-        children: [
-          {
-            path: "",
-            element: <SelectPerformance />,
-          },
-          {
-            path: "write",
-            element: <ReviewForm />,
-          },
-        ],
+      },
+      {
+        path: "my-review",
+        element: <MyReview />,
+      },
+      {
+        path: "my-review/edit/:id",
+        element: <EditReview />,
       },
       {
         path: "",
@@ -57,12 +57,6 @@ const router = createBrowserRouter([
           {
             path: "",
             element: <Home />,
-            children: [
-              {
-                path: "reviews",
-                element: <Reviews />,
-              },
-            ],
           },
           {
             path: "tickets",

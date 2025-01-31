@@ -4,14 +4,16 @@ import { auth } from "../firebase";
 import useModal from "../hooks/useModal";
 import Modal from "../components/Modal";
 import EditProfile from "../components/EditProfile";
+import { Link } from "react-router-dom";
+import NextIcon from "../assets/icons/NextIcon";
 
-const Wrapper = styled.div`
-  padding: 20px;
-`;
+const Wrapper = styled.div``;
 const Profile = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  padding: 40px 20px;
+  border-bottom: 1px solid #ccc;
   .collumn {
     &.left {
       flex: 1 1 auto;
@@ -66,8 +68,22 @@ const Profile = styled.div`
   }
 `;
 
-// TODO
-// [ ] 내가 쓴 리뷰 보기 => 수정, 삭제
+const Content = styled.div`
+  display: flex;
+  flex-direction: column;
+  .item {
+    padding: 20px;
+    font-size: 18px;
+    text-decoration: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    svg {
+      height: 32px;
+    }
+  }
+`;
 
 const MyPage = () => {
   const user = auth.currentUser;
@@ -91,6 +107,12 @@ const MyPage = () => {
           <button onClick={() => openModal("edit-profile")}>프로필 수정</button>
         </div>
       </Profile>
+      <Content>
+        <Link className="item" to="/my-review">
+          <span>내가 쓴 리뷰</span>
+          <NextIcon fill="#333" />
+        </Link>
+      </Content>
       {/* 프로필 수정 모달 */}
       {isOpen("edit-profile") ? (
         <Modal title="프로필 수정" onClose={() => closeModal("edit-profile")}>

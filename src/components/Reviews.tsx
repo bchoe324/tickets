@@ -5,8 +5,8 @@ import { useEffect, useState } from "react";
 import { Review } from "../pages/NewReview";
 import ThumbUpIcon from "../assets/icons/ThumbUpIcon";
 import ThumbDownIcon from "../assets/icons/ThumbDownIcon";
-import { intervalToDuration } from "date-fns";
 import ToggleText from "./ToggleText";
+import getRelativeTime from "../util/getRelativeTime";
 
 const Wrapper = styled.section`
   .review_wrapper {
@@ -35,7 +35,6 @@ const Wrapper = styled.section`
           top: 0;
           left: 0;
           transform: translate(-30%, -30%);
-          display: block;
           width: 28px;
           height: 28px;
           border-radius: 50%;
@@ -85,32 +84,14 @@ const Wrapper = styled.section`
 // TODO
 // [ ] 말줄임 반응형
 
+type ReviewCardType = Pick<
+  Review,
+  "show" | "recommend" | "createdAt" | "review"
+>;
+
 const Reviews = () => {
-  const [reviews, setReviews] = useState<Review[]>([]);
+  const [reviews, setReviews] = useState<ReviewCardType[]>([]);
   const now = Date.now();
-
-  const getRelativeTime = (createdTime: number, now: number) => {
-    const duration = intervalToDuration({
-      start: new Date(createdTime),
-      end: new Date(now),
-    });
-
-    if (!!duration.years && duration.years > 0) {
-      return `${duration.years}년 전`;
-    } else if (!!duration.months && duration.months > 0) {
-      return `${duration.months}개월 전`;
-    } else if (!!duration.weeks && duration.weeks > 0) {
-      return `${duration.weeks}주 전`;
-    } else if (!!duration.days && duration.days > 0) {
-      return `${duration.days}일 전`;
-    } else if (!!duration.hours && duration.hours > 0) {
-      return `${duration.hours}시간 전`;
-    } else if (!!duration.minutes && duration.minutes > 0) {
-      return `${duration.minutes}분 전`;
-    } else if (!!duration.seconds) {
-      return "방금 전";
-    }
-  };
 
   const fetchReviews = async () => {
     const reviewQuery = query(
@@ -120,10 +101,9 @@ const Reviews = () => {
     );
     const reviewSnap = await getDocs(reviewQuery);
     const reviewArray = reviewSnap.docs.map((doc) => {
-      const { title, poster, recommend, review, createdAt } = doc.data();
+      const { show, recommend, review, createdAt } = doc.data();
       return {
-        title,
-        poster,
+        show,
         recommend,
         review,
         createdAt,
@@ -144,7 +124,7 @@ const Reviews = () => {
           reviews.map((review) => (
             <div className="item" key={review.createdAt}>
               <div className="poster">
-                <img src={review.poster} />
+                <img src={review.show.poster} />
                 {review.recommend ? (
                   <span className="icon like">
                     <ThumbUpIcon fill="#fff" />
@@ -156,7 +136,7 @@ const Reviews = () => {
                 )}
               </div>
               <div className="text">
-                <p className="title">{review.title}</p>
+                <p className="title">{review.show.title}</p>
                 <ToggleText text={review.review} maxLength={100} />
               </div>
               <p className="created_time">

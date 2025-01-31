@@ -94,7 +94,7 @@ const Detail = () => {
             </button>
           </div>
           <div className="right">
-            <Link className="button" to={`/tickets-edit/${docId}`}>
+            <Link className="button" to={`/tickets/edit/${docId}`}>
               <EditIcon fill="#333" />
             </Link>
             <button className="button" onClick={onDelete}>

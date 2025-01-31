@@ -113,7 +113,7 @@ const Edit = () => {
       console.error(error);
     } finally {
       setLoading(false);
-      nav(`/tickets-detail/${docId}`, { replace: true });
+      nav(`/tickets/detail/${docId}`, { replace: true });
     }
   };
 

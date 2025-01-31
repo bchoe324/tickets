@@ -1,5 +1,4 @@
 import { replace, useNavigate } from "react-router-dom";
-import PrevIcon from "../assets/icons/PrevIcon";
 import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -7,7 +6,8 @@ import { auth, db, storage } from "../firebase";
 import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
 import Loading from "../components/Loading";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { Wrapper, Header, Content } from "../components/TicketInfoComponents";
+import { Wrapper, Content } from "../components/TicketInfoComponents";
+import Header from "../components/Header";
 
 const NewTicket = () => {
   const nav = useNavigate();
@@ -86,13 +86,10 @@ const NewTicket = () => {
   return (
     <Wrapper>
       <form className="content" onSubmit={onSubmit}>
-        <Header>
-          <button className="button" onClick={() => nav(-1)}>
-            <PrevIcon fill="#333" />
-          </button>
-          <h2>새 일정 추가</h2>
-          <input type="submit" value="저장" />
-        </Header>
+        <Header
+          center={"새 일정 추가"}
+          right={<input className="button" type="submit" value="저장" />}
+        />
         <Content>
           <div className="image">
             <label htmlFor="image">

@@ -1,24 +1,9 @@
-import { useState } from "react";
-import { Navigate, useNavigate, useOutletContext } from "react-router-dom";
-import Loading from "./Loading";
+import { useEffect, useState } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import ThumbDownIcon from "../assets/icons/ThumbDownIcon";
 import ThumbUpIcon from "../assets/icons/ThumbUpIcon";
-import { auth, db } from "../firebase";
 import { Review } from "../pages/NewReview";
-import { addDoc, collection, doc } from "firebase/firestore";
-
-type ContextType = {
-  performance: {
-    id: string;
-    poster: string;
-    title: string;
-    duration: string;
-    theater: string;
-  };
-  review: Review;
-  setReview: React.Dispatch<React.SetStateAction<object>>;
-};
 
 const Form = styled.form`
   padding: 0 20px;
@@ -114,13 +99,23 @@ const Form = styled.form`
 `;
 // TODO
 // [ ] 작성중인 폼 데이터 캐시에 저장?
-// [ ] review, setReview useOutletContext()로 가져오지 말고, 그냥 컴포넌트 내부에 만들어도 될 듯
-const ReviewForm = () => {
-  const user = auth.currentUser;
-  const nav = useNavigate();
-  const { performance, review, setReview } = useOutletContext<ContextType>();
-  const [isLoading, setLoading] = useState(false);
+
+type PropsType = {
+  review: Review;
+  setReview: React.Dispatch<React.SetStateAction<Review>>;
+  onSubmit: (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
+};
+
+const ReviewForm = ({ review, setReview, onSubmit }: PropsType) => {
   const [selectedId, setSelectedId] = useState("");
+
+  useEffect(() => {
+    // 리뷰 데이터 있으면 selectedId에 라디오버튼 선택 정보 저장
+    if (review.recommend !== null) {
+      const radioId = review.recommend ? "like" : "dislike";
+      setSelectedId(radioId);
+    }
+  }, []);
 
   const onChangeRadio = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedId(e.target.id);
@@ -137,52 +132,20 @@ const ReviewForm = () => {
     }));
   };
 
-  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (
-      !user ||
-      typeof review.recommend === "undefined" ||
-      review.review === ""
-    ) {
-      return;
-    }
-    const updatedReview = {
-      ...review,
-      uid: user.uid,
-      createdAt: Date.now(),
-      performanceId: performance.id,
-      title: performance.title,
-      poster: performance.poster,
-    };
-    setReview(updatedReview);
-    try {
-      setLoading(true);
-      addDoc(collection(db, "reviews"), {
-        ...updatedReview,
-      });
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
-      nav("/", { replace: true });
-    }
-  };
-
-  if (!performance) {
+  if (!review.show) {
     return <Navigate to="/" />;
   } else {
     return (
       <>
-        {isLoading ? <Loading /> : null}
-        <Form id="write" onSubmit={onSubmit}>
+        <Form id="review" onSubmit={onSubmit}>
           <div className="performance section">
             <p className="notice">관람 공연</p>
             <div className="box">
-              <img src={performance.poster} />
+              <img src={review.show.poster} />
               <div className="text">
-                <p className="title">{performance.title}</p>
-                <p className="duration">{performance.duration}</p>
-                <p className="theater">{performance.theater}</p>
+                <p className="title">{review.show.title}</p>
+                <p className="duration">{review.show.duration}</p>
+                <p className="theater">{review.show.theater}</p>
               </div>
             </div>
           </div>
@@ -238,6 +201,7 @@ const ReviewForm = () => {
               maxLength={300}
               placeholder="이 공연에서 좋았던 점이나 아쉬웠던 점을 자유롭게 적어주세요. (예: 배우들의 연기가 어땠나요? 무대 연출이 흥미로웠나요?)"
               onChange={onChangeTextarea}
+              value={review.review}
             ></textarea>
           </div>
         </Form>

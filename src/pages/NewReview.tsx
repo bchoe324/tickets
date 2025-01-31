@@ -1,113 +1,109 @@
 import { useEffect, useState } from "react";
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import PrevIcon from "../assets/icons/PrevIcon";
+import FindShow from "../components/FindShow";
+import ReviewForm from "../components/ReviewForm";
+import Header from "../components/Header";
+import Loading from "../components/Loading";
+import { addDoc, collection } from "firebase/firestore";
+import { auth, db } from "../firebase";
+import { useNavigate } from "react-router-dom";
 
 const Wrapper = styled.div``;
-
-const Header = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 10px;
-  border-bottom: 1px solid #999;
-  margin-bottom: 40px;
-  font-size: 18px;
-  h2 {
-    font-weight: 500;
-  }
-  > div {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .button {
-    display: block;
-    height: 100%;
-    cursor: pointer;
-    padding: 0;
-    background: none;
-    border: 0 none;
-    svg {
-      display: block;
-      width: auto;
-      height: 32px;
-    }
-    &:hover,
-    &:active {
-      opacity: 0.8;
-    }
-  }
-  .right {
-    .button svg {
-      height: 24px;
-    }
-    .button:last-child {
-      margin-left: 10px;
-    }
-  }
-  input {
-    border: 0 none;
-    background: none;
-    color: #813dff;
-    cursor: pointer;
-    &:hover,
-    &:active {
-      color: #6002ee;
-    }
-    &:disabled {
-      cursor: default;
-      color: #ccc;
-    }
-  }
-`;
 
 const Content = styled.div``;
 
 export interface Review {
-  performanceId: string;
-  title: string;
-  poster: string;
+  show: Show;
   uid: string;
   createdAt: number;
-  recommend: boolean;
+  recommend: boolean | null;
   review: string;
 }
 
 // TODO
 // [ ] 더보기 버튼 누르면 이전 데이터 불러오기
 
-type Performance = {
+interface Show {
   id: string;
   poster: string;
   title: string;
   duration: string;
-};
+  theater: string;
+}
 
 const NewReview = () => {
+  const user = auth.currentUser;
   const nav = useNavigate();
-  const [review, setReview] = useState<Review>();
-  const [performance, setPerformance] = useState<Performance>();
-  const location = useLocation();
+  const [isLoading, setLoading] = useState(false);
+  const [review, setReview] = useState<Review>({
+    show: {
+      id: "",
+      poster: "",
+      title: "",
+      duration: "",
+      theater: "",
+    },
+    uid: "",
+    createdAt: Date.now(),
+    recommend: null,
+    review: "",
+  });
+
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!user || review.recommend === null || review.review === "") {
+      return;
+    }
+    try {
+      setLoading(true);
+      addDoc(collection(db, "reviews"), {
+        ...review,
+        createdAt: Date.now(),
+      });
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+      nav("/", { replace: true });
+    }
+  };
+
+  useEffect(() => {
+    if (!user) return;
+    setReview((prev) => ({
+      ...prev,
+      uid: user.uid,
+    }));
+  }, []);
 
   return (
     <Wrapper>
+      {isLoading ? <Loading /> : null}
       <div>
-        <Header>
-          <button className="button" onClick={() => nav(-1)}>
-            <PrevIcon fill="#333" />
-          </button>
-          <h2>리뷰 작성</h2>
-          {location.pathname === "/new-review/write" ? (
-            <input type="submit" form="write" value="저장" />
-          ) : (
-            <input type="submit" form="find" value="다음" />
-          )}
-        </Header>
+        <Header
+          center={"리뷰 작성"}
+          right={
+            <input
+              className="button"
+              type="submit"
+              value="저장"
+              form="review"
+              disabled={
+                review?.recommend !== null && review.review ? false : true
+              }
+            />
+          }
+        />
         <Content>
-          <Outlet
-            context={{ performance, setPerformance, review, setReview }}
-          />
+          {review.show.title ? (
+            <ReviewForm
+              review={review}
+              setReview={setReview}
+              onSubmit={onSubmit}
+            />
+          ) : (
+            <FindShow review={review} setReview={setReview} />
+          )}
         </Content>
       </div>
     </Wrapper>
