@@ -62,9 +62,6 @@ export interface CalendarTicketProps
 
 export const MonthlyTicketsContext = createContext<CalendarTicketProps[]>([]);
 
-// TODO
-// [ ] 같은 날짜에 여러개 등록하는 경우 => 시간순으로 & 클릭하면 리스트로
-
 const Tickets = () => {
   // 월별 티켓
   const [tickets, setTickets] = useState<CalendarTicketProps[]>([]);

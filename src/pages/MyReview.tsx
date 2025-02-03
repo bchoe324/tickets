@@ -27,10 +27,6 @@ import NoContents from "../components/common/NoContents";
 
 const Wrapper = styled.div``;
 
-// TODO
-// [ ] 헤더 높이 맞추기
-// [ ] 리뷰 없을때 텍스트
-
 const Content = styled.div`
   .item {
     position: relative;
