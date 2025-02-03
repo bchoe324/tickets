@@ -1,13 +1,13 @@
-import { format, subDays } from "date-fns";
-import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
-import xmlToJson from "../util/xmlToJson";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+import NextIcon from "../assets/icons/NextIcon";
+import useRank from "../hooks/useRank";
 
-const apikey = import.meta.env.VITE_KOPIS_API_KEY;
 const Wrapper = styled.section`
   padding-right: 0;
+
   .rank_swiper {
     .rank {
       width: 24px;
@@ -33,51 +33,16 @@ const Wrapper = styled.section`
   }
 `;
 
-type Rank = {
-  prfplcnm: string;
-  seatcnt: string;
-  rnum: string;
-  poster: string;
-  prfpd: string;
-  mt20id: string;
-  prfnm: string;
-  cate: string;
-  prfdtcnt: string;
-  area: string;
-};
-
 const Ranks = () => {
-  const today = format(new Date(), "yyyyMMdd");
-  const weekBefore = format(subDays(new Date(), 7), "yyyyMMdd");
-  const [ranks, setRanks] = useState<Rank[]>([]);
-
-  // TODO
-  // [ ] 빌드 전에 프록시 설정 변경해야됨
-  // [ ] 더보기 버튼 => 50개 다 보여주기
-  const fetchAPI = async () => {
-    try {
-      // 장르별 예매 통계
-      const apiURL = `/api/openApi/restful/boxoffice?service=${apikey}&stdate=${weekBefore}&eddate=${today}&catecode=GGGA&area=11`;
-      const response = await fetch(apiURL);
-      const xmlText = await response.text();
-
-      const parser = new DOMParser();
-      const xmlDoc = parser.parseFromString(xmlText, "application/xml");
-
-      const jsonResult = xmlToJson(xmlDoc);
-      setRanks(jsonResult.boxofs.boxof);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    fetchAPI();
-  }, []);
-
+  const ranks = useRank();
   return (
     <Wrapper className="ranks">
-      <h2>공연 순위</h2>
+      <div className="title_wrapper">
+        <h2>공연 순위</h2>
+        <Link to="/ranking" className="view_more">
+          더보기 <NextIcon fill="#333" />
+        </Link>
+      </div>
 
       <Swiper className="rank_swiper" slidesPerView={2.4} spaceBetween={10}>
         {ranks &&

@@ -14,10 +14,24 @@ const Wrapper = styled.div`
         padding: 0 20px;
       }
     }
+
+    .title_wrapper {
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .view_more {
+        flex: 0 0 auto;
+        text-decoration: none;
+        display: flex;
+        svg {
+          width: 24px;
+        }
+      }
+    }
     h2 {
       font-size: 18px;
       font-weight: 600;
-      margin-bottom: 10px;
     }
   }
 `;

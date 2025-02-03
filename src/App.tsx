@@ -12,17 +12,26 @@ import Detail from "./pages/Detail";
 import { useEffect, useState } from "react";
 import { auth } from "./firebase";
 import ProtectedRoute from "./components/layout/ProtectedRoute";
-import ForgotPassword from "./pages/ForgotPassword";
 import Edit from "./pages/Edit";
 import NewReview from "./pages/NewReview";
 import MyReview from "./pages/MyReview";
 import EditReview from "./pages/EditReview";
+import Ranking from "./pages/Ranking";
+import Show from "./pages/Show";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <ProtectedRoute />,
     children: [
+      {
+        path: "ranking",
+        element: <Ranking />,
+      },
+      {
+        path: "show/:id",
+        element: <Show />,
+      },
       {
         path: "tickets/new",
         element: <NewTicket />,

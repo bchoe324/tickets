@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "http://kopis.or.kr",
+        target: "http://www.kopis.or.kr",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ""),
       },
