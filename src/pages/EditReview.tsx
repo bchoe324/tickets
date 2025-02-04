@@ -8,8 +8,6 @@ import Loading from "../components/common/Loading";
 import Header from "../components/layout/Header";
 import ReviewForm from "../components//reviews/ReviewForm";
 
-const apikey = import.meta.env.VITE_KOPIS_API_KEY;
-
 const Form = styled.form`
   padding: 0 20px;
   .section:nth-child(n + 2) {

@@ -3,7 +3,6 @@ import { format, subDays } from "date-fns";
 import xmlToJson from "../util/xmlToJson";
 
 const apikey = import.meta.env.VITE_KOPIS_API_KEY;
-const API_URL = import.meta.env.VITE_API_URL;
 
 type Rank = {
   prfplcnm: string;
@@ -26,14 +25,18 @@ const useRank = () => {
   const fetchAPI = async () => {
     try {
       // 장르별 예매 통계
-      const apiURL = `${API_URL}/openApi/restful/boxoffice?service=${apikey}&stdate=${weekBefore}&eddate=${today}&catecode=GGGA&area=11`;
+      const apiURL = `/api/openApi/restful/boxoffice?service=${apikey}&stdate=${weekBefore}&eddate=${today}&catecode=GGGA&area=11`;
       const response = await fetch(apiURL);
       const xmlText = await response.text();
 
       const parser = new DOMParser();
       const xmlDoc = parser.parseFromString(xmlText, "application/xml");
+      const jsonResult = await xmlToJson(xmlDoc);
+      if (!jsonResult?.boxofs?.boxof) {
+        console.error("❌ 예상한 데이터 형식이 아님!", jsonResult);
+        throw new Error("데이터를 가져올 수 없습니다.");
+      }
 
-      const jsonResult = xmlToJson(xmlDoc);
       setRanks(jsonResult.boxofs.boxof);
     } catch (error) {
       console.log(error);

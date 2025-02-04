@@ -6,7 +6,6 @@ import Header from "../components/layout/Header";
 import Loading from "../components/common/Loading";
 
 const apikey = import.meta.env.VITE_KOPIS_API_KEY;
-const API_URL = import.meta.env.VITE_API_URL;
 
 const ShowLayout = styled.div`
   .info_wrapper {
@@ -79,14 +78,14 @@ const Show = () => {
     const showId = params.id;
     try {
       setLoading(true);
-      const apiURL = `${API_URL}/openApi/restful/pblprfr/${showId}?service=${apikey}`;
+      const apiURL = `/api/openApi/restful/pblprfr/${showId}?service=${apikey}`;
       const response = await fetch(apiURL);
       const xmlText = await response.text();
 
       const parser = new DOMParser();
       const xmlDoc = parser.parseFromString(xmlText, "application/xml");
 
-      const jsonResult = xmlToJson(xmlDoc);
+      const jsonResult = await xmlToJson(xmlDoc);
       setData(jsonResult.dbs.db);
     } catch (error) {
       console.error(error);

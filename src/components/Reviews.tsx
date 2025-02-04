@@ -81,9 +81,6 @@ const Wrapper = styled.section`
   }
 `;
 
-// TODO
-// [ ] 말줄임 반응형
-
 type ReviewCardType = Pick<
   Review,
   "show" | "recommend" | "createdAt" | "review"

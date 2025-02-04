@@ -1,4 +1,4 @@
-const xmlToJson = (xml: Document | Element): any => {
+const xmlToJson = async (xml: Document | Element): any => {
   let obj: any = {};
 
   if (xml.nodeType == 1) {
@@ -30,14 +30,14 @@ const xmlToJson = (xml: Document | Element): any => {
       let item = xml.childNodes.item(i);
       let nodeName = item.nodeName;
       if (typeof obj[nodeName] == "undefined") {
-        obj[nodeName] = xmlToJson(item);
+        obj[nodeName] = await xmlToJson(item);
       } else {
         if (typeof obj[nodeName].push == "undefined") {
           let old = obj[nodeName];
           obj[nodeName] = [];
           obj[nodeName].push(old);
         }
-        obj[nodeName].push(xmlToJson(item));
+        obj[nodeName].push(await xmlToJson(item));
       }
     }
   }

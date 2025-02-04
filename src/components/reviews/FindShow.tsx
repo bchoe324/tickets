@@ -97,14 +97,14 @@ const FindShow = ({ review, setReview }: PropsType) => {
       setLoading(true);
       const encoding = encodeURIComponent(name);
       const today = format(new Date(), "yyyyMMdd");
-      const apiURL = `api/openApi/restful/pblprfr?service=${apikey}&stdate=20000101&eddate=${today}&cpage=1&rows=10&shcate=GGGA&shprfnm=${encoding}`;
+      const apiURL = `/api/openApi/restful/pblprfr?service=${apikey}&stdate=20000101&eddate=${today}&cpage=1&rows=10&shcate=GGGA&shprfnm=${encoding}`;
       const response = await fetch(apiURL);
       const xmlText = await response.text();
 
       const parser = new DOMParser();
       const xmlDoc = parser.parseFromString(xmlText, "application/xml");
 
-      const jsonResult = xmlToJson(xmlDoc);
+      const jsonResult = await xmlToJson(xmlDoc);
       setData(jsonResult.dbs.db);
     } catch (error) {
       console.error(error);
