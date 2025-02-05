@@ -1,50 +1,71 @@
-# React + TypeScript + Vite
+# 🎟️ Tickets
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**🔗 서비스 URL:** Tickets-719bb
 
-Currently, two official plugins are available:
+**Tickets**는 공연 일정 기록을 위한 서비스로, 공연 정보 조회, 공연 리뷰 작성 등의 기능을 제공합니다.
+기존의 모바일 앱을 참고하여 제작되었습니다.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+<br />
 
-## Expanding the ESLint configuration
+## ✨ 주요 기능
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **공연 일정 관리:** 공연 일정을 추가, 조회, 수정, 삭제할 수 있습니다.
+- **공연 정보 조회:** 예매 순위 및 상세 정보를 확인할 수 있습니다. (출처: 공연예술통합전산망)
+- **공연 리뷰:** 사용자들이 남긴 공연 리뷰를 조회하고, 직접 작성할 수 있습니다.
+- **마이페이지:** 프로필을 조회 및 수정할 수 있으며, 내가 작성한 리뷰를 관리할 수 있습니다.
+- **회원가입 및 로그인:** Firebase Authentication을 이용하여 이메일로 가입 및 로그인이 가능합니다.
 
-- Configure the top-level `parserOptions` property like this:
+<br />
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## 🛠️ 기술 스택
+
+- **Frontend:** React, TypeScript
+- **Backend:** Firebase (Firestore, Storage, Cloud Functions, Hosting, Authentication)
+
+<br />
+
+## 📌 주요 페이지
+
+**1️⃣ 티켓 페이지 🎫**
+<img src="./images/ticket.png" width="200" />
+
+- 공연 일정을 추가, 조회, 수정, 삭제할 수 있습니다.
+
+<br />
+
+**2️⃣ 홈 페이지 🏠**
+<img src="./images/home.png" width="200" />
+
+- 공연 예매 순위 및 상세 정보를 제공합니다.
+- 사용자들이 작성한 공연 리뷰를 확인할 수 있습니다.
+
+<br />
+
+**3️⃣ 마이페이지 👤**
+<img src="./images/mypage.png" width="200" />
+
+- 사용자 프로필을 조회하고 수정할 수 있습니다.
+- 내가 작성한 리뷰 목록을 확인하고, 새 리뷰를 작성할 수 있습니다.
+
+<br />
+
+## 📂 프로젝트 구조
+
 ```
-
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+📦 tickets
+├── 📂 public
+├── 📂 src
+│   ├── 📂 components        # 컴포넌트
+│   ├── 📂 pages             # 페이지 컴포넌트
+│   ├── 📂 hooks             # 커스텀 훅
+│   ├── 📂 util              # 유틸리티 함수
+│   ├── 📂 assets            # 이미지, 아이콘 등
+│   ├── 📜 App.tsx           # 라우트 설정
+│   ├── 📜 App.css           # css 초기화, 공통 스타일
+├── 📂 functions             # Firebase Cloud Functions 코드
+│   ├── 📂 src               # API Proxy 함수
+│   └── 📜 package.json      # Functions 관련 의존성 파일
+├── 📂 dist                  # 빌드된 파일
+├── 📜 firebase.json         # Firebase 설정
+└── 📜 index.html
 ```
