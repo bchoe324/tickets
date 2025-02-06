@@ -1,6 +1,6 @@
 # 🎟️ Tickets
 
-**🔗 서비스 URL:** Tickets-719bb
+**🔗 서비스 URL:** https://tickets-719bb.web.app/
 
 **Tickets**는 공연 일정 기록을 위한 서비스로, 공연 정보 조회, 공연 리뷰 작성 등의 기능을 제공합니다.
 기존의 모바일 앱을 참고하여 제작되었습니다.
