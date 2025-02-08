@@ -4,6 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import NextIcon from "../assets/icons/NextIcon";
 import useRank from "../hooks/useRank";
+import Loading from "./common/Loading";
 
 const Wrapper = styled.section`
   padding-right: 0;
@@ -34,7 +35,9 @@ const Wrapper = styled.section`
 `;
 
 const Ranks = () => {
-  const ranks = useRank();
+  const { isLoading, isError, ranks } = useRank();
+  if (isLoading) return <Loading />;
+  if (isError) return <div>데이터를 불러올 수 없습니다.</div>;
   return (
     <Wrapper className="ranks">
       <div className="title_wrapper">
@@ -45,7 +48,7 @@ const Ranks = () => {
       </div>
 
       <Swiper className="rank_swiper" slidesPerView={2.4} spaceBetween={10}>
-        {ranks &&
+        {Array.isArray(ranks) &&
           ranks.map((item, index) => {
             if (index < 10) {
               return (

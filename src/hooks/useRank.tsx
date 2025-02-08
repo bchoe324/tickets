@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
 import { format, subDays } from "date-fns";
 import xmlToJson from "../util/xmlToJson";
+import { useQuery } from "@tanstack/react-query";
 
 const apikey = import.meta.env.VITE_KOPIS_API_KEY;
 
@@ -20,7 +20,6 @@ type Rank = {
 const useRank = () => {
   const today = format(new Date(), "yyyyMMdd");
   const weekBefore = format(subDays(new Date(), 7), "yyyyMMdd");
-  const [ranks, setRanks] = useState<Rank[]>([]);
 
   const fetchAPI = async () => {
     try {
@@ -37,17 +36,22 @@ const useRank = () => {
         throw new Error("데이터를 가져올 수 없습니다.");
       }
 
-      setRanks(jsonResult.boxofs.boxof);
+      return jsonResult.boxofs.boxof;
     } catch (error) {
       console.log(error);
     }
   };
 
-  useEffect(() => {
-    fetchAPI();
-  }, []);
+  const {
+    data: ranks,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["ranks"],
+    queryFn: fetchAPI,
+  });
 
-  return ranks;
+  return { isLoading, isError, ranks };
 };
 
 export default useRank;

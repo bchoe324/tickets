@@ -12,6 +12,8 @@
     "deploy": "firebase deploy"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.66.0",
+    "@tanstack/react-query-devtools": "^5.66.0",
     "@types/express": "^5.0.0",
     "cors": "^2.8.5",
     "date-fns": "^4.1.0",

@@ -3,6 +3,7 @@ import Header from "../components/layout/Header";
 import useRank from "../hooks/useRank";
 import { format, subDays } from "date-fns";
 import { useNavigate } from "react-router-dom";
+import Loading from "../components/common/Loading";
 
 const RankingLayout = styled.div`
   .item {
@@ -58,15 +59,18 @@ const RankingLayout = styled.div`
 
 const Ranking = () => {
   const nav = useNavigate();
-  const ranks = useRank();
+  const { isLoading, isError, ranks } = useRank();
   const today = format(new Date(), "yyyy년 MM월 dd일");
   const weekBefore = format(subDays(new Date(), 7), "yyyy년 MM월 dd일");
+
+  if (isLoading) return <Loading />;
+  if (isError) return <div>데이터를 불러올 수 없습니다.</div>;
 
   return (
     <RankingLayout>
       <Header center={"이번 주 공연 순위"} />
       <div className="item_wrapper">
-        {ranks &&
+        {Array.isArray(ranks) &&
           ranks.map((item) => {
             return (
               <div
