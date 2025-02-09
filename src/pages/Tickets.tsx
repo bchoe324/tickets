@@ -14,6 +14,8 @@ import { createContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { collection, doc, getDocs, query, where } from "firebase/firestore";
 import { auth, db } from "../firebase";
+import { useQuery } from "@tanstack/react-query";
+import Loading from "../components/common/Loading";
 
 const Wrapper = styled.div``;
 const Header = styled.div`
@@ -60,11 +62,8 @@ export interface CalendarTicketProps
     "title" | "image" | "date" | "id" | "theater" | "cast" | "seat"
   > {}
 
-export const MonthlyTicketsContext = createContext<CalendarTicketProps[]>([]);
-
 const Tickets = () => {
   // 월별 티켓
-  const [tickets, setTickets] = useState<CalendarTicketProps[]>([]);
   const [pivotDate, setPivotDate] = useState(new Date());
   const prevMonth = () => {
     setPivotDate((pivotDate) => {
@@ -77,7 +76,8 @@ const Tickets = () => {
     });
   };
 
-  const fetchTickets = async () => {
+  const fetchTickets = async ({ queryKey }: { queryKey: [string, Date] }) => {
+    const [, pivotDate] = queryKey;
     const user = auth.currentUser;
     if (!user) return;
     const endTimestamp = endOfMonth(pivotDate).getTime();
@@ -102,12 +102,20 @@ const Tickets = () => {
         id: doc.id,
       };
     });
-    setTickets(ticketsArr);
+    return ticketsArr;
   };
 
-  useEffect(() => {
-    fetchTickets();
-  }, [pivotDate]);
+  const {
+    isLoading,
+    isError,
+    data: tickets,
+  } = useQuery({
+    queryKey: ["tickets", pivotDate],
+    queryFn: fetchTickets,
+  });
+
+  if (isLoading) return <Loading />;
+  if (isError) return <div>데이터를 불러올 수 없습니다.</div>;
 
   return (
     <>
@@ -128,9 +136,7 @@ const Tickets = () => {
             </Link>
           </div>
         </Header>
-        <MonthlyTicketsContext.Provider value={tickets}>
-          <Calendar pivotDate={pivotDate} />
-        </MonthlyTicketsContext.Provider>
+        <Calendar pivotDate={pivotDate} tickets={tickets || []} />
       </Wrapper>
     </>
   );

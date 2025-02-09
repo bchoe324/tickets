@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { format, getMonth } from "date-fns";
 import { ko } from "date-fns/locale";
-import { useState, useRef, useEffect, useContext } from "react";
-import { MonthlyTicketsContext } from "../../pages/Tickets";
+import { useState, useRef, useEffect } from "react";
+import { CalendarTicketProps } from "../../pages/Tickets";
 import { useNavigate } from "react-router-dom";
 import BottomSheet from "../common/BottomSheet";
 import useModal from "../../hooks/useModal";
@@ -104,22 +104,18 @@ const DateCell = ({
   month,
   day,
   date,
+  tickets,
 }: {
   pivotDate: Date;
   month: string;
   day: string;
   date: string;
+  tickets: CalendarTicketProps[];
 }) => {
   const nav = useNavigate();
   const dateWidth = useRef<HTMLDivElement>(null);
   const [dateHeight, setDateHeight] = useState(0);
-  const tickets = useContext(MonthlyTicketsContext);
   const { isOpen, openModal, closeModal } = useModal();
-
-  const todayTickets = tickets.filter(
-    (ticket) =>
-      format(new Date(ticket.date), "MMdd") === format(new Date(date), "MMdd")
-  );
 
   useEffect(() => {
     if (!dateWidth.current) return;
@@ -138,22 +134,23 @@ const DateCell = ({
     >
       {getMonth(pivotDate) + 1 === Number(month) ? day : null}
       <TicketWrapper>
-        {todayTickets.map((ticket) => {
-          return (
-            <div
-              key={ticket.id}
-              className="item"
-              style={{ height: `calc(100% / ${todayTickets.length})` }}
-              onClick={
-                todayTickets.length > 1
-                  ? () => openModal("select-ticket")
-                  : () => nav(`/tickets/detail/${ticket.id}`)
-              }
-            >
-              <img src={ticket.image} alt="티켓 이미지" />
-            </div>
-          );
-        })}
+        {tickets &&
+          tickets.map((ticket) => {
+            return (
+              <div
+                key={ticket.id}
+                className="item"
+                style={{ height: `calc(100% / ${tickets.length})` }}
+                onClick={
+                  tickets.length > 1
+                    ? () => openModal("select-ticket")
+                    : () => nav(`/tickets/detail/${ticket.id}`)
+                }
+              >
+                <img src={ticket.image} alt="티켓 이미지" />
+              </div>
+            );
+          })}
       </TicketWrapper>
       {/* 회차 선택 모달 */}
       {isOpen("select-ticket") ? (
@@ -162,8 +159,8 @@ const DateCell = ({
           onClose={() => closeModal("select-ticket")}
         >
           <div>
-            {todayTickets.length > 1
-              ? todayTickets.map((ticket) => (
+            {tickets && tickets.length > 1
+              ? tickets.map((ticket) => (
                   <div
                     key={ticket.id}
                     className="ticket_item"

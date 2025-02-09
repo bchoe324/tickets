@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import getCalendarDays from "../../util/getCalendarDays";
 import DateCell from "./DateCell";
+import { CalendarTicketProps } from "../../pages/Tickets";
+import { format } from "date-fns";
 
 const Wrapper = styled.div`
   padding: 0 20px;
@@ -28,8 +30,20 @@ const Dates = styled.div`
 
 const DaysOfWeek = ["일", "월", "화", "수", "목", "금", "토"];
 
-const Calendar = ({ pivotDate }: { pivotDate: Date }) => {
+const Calendar = ({
+  pivotDate,
+  tickets,
+}: {
+  pivotDate: Date;
+  tickets: CalendarTicketProps[];
+}) => {
   const daysInMonth = getCalendarDays(pivotDate);
+
+  const ticketsByDate = tickets.reduce((acc, ticket) => {
+    const dayKey = format(new Date(ticket.date), "yyyyMMdd");
+    acc[dayKey] = acc[dayKey] ? [...acc[dayKey], ticket] : [ticket];
+    return acc;
+  }, {} as Record<string, CalendarTicketProps[]>);
 
   return (
     <>
@@ -41,7 +55,12 @@ const Calendar = ({ pivotDate }: { pivotDate: Date }) => {
         </Days>
         <Dates>
           {daysInMonth.map((date) => (
-            <DateCell key={date.date} {...date} pivotDate={pivotDate} />
+            <DateCell
+              key={date.date}
+              {...date}
+              pivotDate={pivotDate}
+              tickets={ticketsByDate[format(new Date(date.date), "yyyyMMdd")]}
+            />
           ))}
         </Dates>
       </Wrapper>
