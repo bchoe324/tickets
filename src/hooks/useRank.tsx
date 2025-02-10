@@ -49,6 +49,7 @@ const useRank = () => {
   } = useQuery({
     queryKey: ["ranks"],
     queryFn: fetchAPI,
+    staleTime: 1000 * 60 * 60 * 24,
   });
 
   return { isLoading, isError, ranks };

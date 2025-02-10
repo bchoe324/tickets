@@ -14,7 +14,12 @@ import { createContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { collection, doc, getDocs, query, where } from "firebase/firestore";
 import { auth, db } from "../firebase";
-import { useQuery } from "@tanstack/react-query";
+import {
+  keepPreviousData,
+  QueryClient,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 import Loading from "../components/common/Loading";
 
 const Wrapper = styled.div``;
@@ -63,17 +68,20 @@ export interface CalendarTicketProps
   > {}
 
 const Tickets = () => {
+  const queryClient = useQueryClient();
   // 월별 티켓
   const [pivotDate, setPivotDate] = useState(new Date());
   const prevMonth = () => {
     setPivotDate((pivotDate) => {
       return subMonths(pivotDate, 1);
     });
+    fetchNextMonthTickets(subMonths(pivotDate, 1));
   };
   const nextMonth = () => {
     setPivotDate((pivotDate) => {
       return addMonths(pivotDate, 1);
     });
+    fetchNextMonthTickets(addMonths(pivotDate, 1));
   };
 
   const fetchTickets = async ({ queryKey }: { queryKey: [string, Date] }) => {
@@ -112,7 +120,16 @@ const Tickets = () => {
   } = useQuery({
     queryKey: ["tickets", pivotDate],
     queryFn: fetchTickets,
+    staleTime: 1000 * 60 * 15,
+    placeholderData: keepPreviousData,
   });
+
+  const fetchNextMonthTickets = async (nextPivotDate: Date) => {
+    await queryClient.prefetchQuery({
+      queryKey: ["tickets", nextPivotDate],
+      queryFn: () => fetchTickets({ queryKey: ["tickets", nextPivotDate] }),
+    });
+  };
 
   if (isLoading) return <Loading />;
   if (isError) return <div>데이터를 불러올 수 없습니다.</div>;
