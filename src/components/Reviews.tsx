@@ -35,6 +35,7 @@ const Wrapper = styled.section`
           top: 0;
           left: 0;
           transform: translate(-30%, -30%);
+          -webkit-transform: translate(-30%, -30%);
           width: 28px;
           height: 28px;
           border-radius: 50%;

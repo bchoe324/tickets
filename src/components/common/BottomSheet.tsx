@@ -16,13 +16,17 @@ const Background = styled.div`
   cursor: pointer;
 `;
 const Body = styled.div`
+  max-width: 600px;
+  min-width: 300px;
   width: 100%;
   background-color: #fff;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   border-radius: 20px 20px 0 0;
   position: fixed;
   bottom: 0;
-  left: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
   padding: 20px;
   .header {
     display: flex;

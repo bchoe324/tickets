@@ -30,9 +30,11 @@
   content: "";
   grid-area: 1/1;
   transform: rotate(30deg);
+  -webkit-transform: rotate(30deg);
 }
 .loader:after {
   transform: rotate(60deg);
+  -webkit-transform: rotate(60deg);
 }
 
 @keyframes l26 {

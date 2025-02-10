@@ -21,6 +21,7 @@ const Wrapper = styled.div`
     bottom: 0;
     left: 100%;
     transform: translate(-100%, 100%);
+    -webkit-transform: translate(-100%, 100%);
     display: flex;
     flex-direction: column;
     background-color: #fff;
