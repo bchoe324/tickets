@@ -4,6 +4,7 @@ export const Wrapper = styled.div`
   max-width: 400px;
   width: 100%;
   height: 100%;
+  padding: 20px;
   margin: auto;
   .title {
     margin-bottom: 80px;

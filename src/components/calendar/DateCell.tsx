@@ -30,7 +30,6 @@ const Wrapper = styled.div`
       border: 1px solid #ccc;
       border-radius: 8px;
       overflow: hidden;
-      aspect-ratio: 3/1;
 
       &:nth-child(n + 2) {
         margin-top: 20px;
@@ -47,8 +46,8 @@ const Wrapper = styled.div`
       .text {
         flex: 1 1 auto;
         text-align: left;
+        padding: 10px;
         > p:not(.title) {
-          padding: 0 10px;
           font-size: 14px;
           line-height: 1.6;
           display: flex;
@@ -63,9 +62,9 @@ const Wrapper = styled.div`
           color: #999;
         }
         .title {
+          margin-bottom: 5px;
           font-size: 16px;
           font-weight: 500;
-          padding: 10px;
         }
       }
     }

@@ -38,6 +38,7 @@ const Login = () => {
         nav("/");
       })
       .catch((error) => {
+        setLoading(false);
         console.log(error.code);
         setErrorMessage(loginErrorMsg(error.code));
       });

@@ -97,7 +97,10 @@ textarea:not([rows]) {
 
 @font-face {
   font-family: "Pretendard Variable";
+  font-weight: 100 900;
   src: url("/PretendardVariable.woff2") format("woff2");
+  font-style: normal;
+  font-display: swap;
 }
 
 body * {
