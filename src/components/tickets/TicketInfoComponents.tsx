@@ -10,59 +10,6 @@ export const Wrapper = styled.div`
   }
 `;
 
-export const Header = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 10px;
-  border-bottom: 1px solid #999;
-  margin-bottom: 40px;
-  font-size: 18px;
-  h2 {
-    font-weight: 500;
-  }
-  > div {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .button {
-    display: block;
-    height: 100%;
-    cursor: pointer;
-    padding: 0;
-    background: none;
-    border: 0 none;
-    svg {
-      display: block;
-      width: auto;
-      height: 32px;
-    }
-    &:hover,
-    &:active {
-      opacity: 0.8;
-    }
-  }
-  .right {
-    .button svg {
-      height: 24px;
-    }
-    .button:last-child {
-      margin-left: 10px;
-    }
-  }
-  input {
-    border: 0 none;
-    background: none;
-    color: #813dff;
-    cursor: pointer;
-    &:hover,
-    &:active {
-      color: #6002ee;
-    }
-  }
-`;
-
 export const Content = styled.div`
   > div {
     padding: 20px;

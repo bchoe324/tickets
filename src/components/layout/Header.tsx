@@ -3,15 +3,9 @@ import PrevIcon from "../../assets/icons/PrevIcon";
 import { useNavigate } from "react-router-dom";
 
 const Wrapper = styled.header`
-  position: relative;
-  height: 62px;
-  padding: 20px;
-  border-bottom: 1px solid #999;
-  display: flex;
-  align-items: center;
   justify-content: space-between;
   font-size: 18px;
-  margin-bottom: 20px;
+
   .left {
     flex: 1 1 20%;
     display: flex;

@@ -146,3 +146,27 @@ h1 {
   font-weight: 700;
   font-style: normal;
 }
+
+header {
+  width: 100%;
+  max-width: 600px;
+  min-width: 300px;
+  padding: 20px;
+  height: 62px;
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+  background-color: #fff;
+  border-bottom: 1px solid #999;
+  display: flex;
+  align-items: center;
+}
+
+main {
+  width: 100%;
+  align-self: flex-start;
+  padding: 62px 0 78px;
+}

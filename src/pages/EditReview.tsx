@@ -3,103 +3,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import { auth, db } from "../firebase";
 import { Review } from "./NewReview";
 import { doc, getDoc, updateDoc, collection } from "firebase/firestore";
-import styled from "styled-components";
 import Loading from "../components/common/Loading";
 import Header from "../components/layout/Header";
 import ReviewForm from "../components//reviews/ReviewForm";
-
-const Form = styled.form`
-  padding: 0 20px;
-  .section:nth-child(n + 2) {
-    margin-top: 60px;
-  }
-  .notice {
-    font-weight: 600;
-    margin-bottom: 15px;
-  }
-  .performance {
-    .box {
-      display: flex;
-      justify-content: flex-start;
-      align-items: flex-start;
-      padding: 10px;
-      border: 1px solid #7416ff;
-      border-radius: 8px;
-
-      img {
-        flex: 0 0 auto;
-        width: 14%;
-      }
-      .text {
-        margin-left: 20px;
-        flex: 1 1 auto;
-        p {
-          margin-top: 5px;
-          font-size: 14px;
-          &.title {
-            font-size: 16px;
-            font-weight: 600;
-            margin-top: 0;
-          }
-        }
-      }
-    }
-  }
-  .recommend {
-    .box {
-      margin: 20px auto 0;
-      display: flex;
-      justify-content: space-between;
-      width: 50%;
-      .radio {
-        flex: 0 0 auto;
-        width: calc((100% - 20px) / 2);
-        label {
-          cursor: pointer;
-          text-align: center;
-          span {
-            display: block;
-          }
-          .icon {
-            flex: 1 1 auto;
-            padding: 8px 30px;
-            border-radius: 28px;
-            border: 1px solid #999;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            svg {
-              width: 24px;
-            }
-
-            &.checked {
-              border-color: #7416ff;
-              background-color: #7416ff;
-            }
-          }
-        }
-        input {
-          display: none;
-        }
-      }
-    }
-  }
-
-  .review {
-    textarea {
-      width: 100%;
-      padding: 10px;
-      resize: none;
-      border: 1px solid #999;
-      border-radius: 8px;
-      &:focus {
-        outline: 0;
-        border: 1px solid #813dff;
-      }
-    }
-  }
-`;
 
 const EditReview = () => {
   const params = useParams();
@@ -163,7 +69,7 @@ const EditReview = () => {
   }, []);
 
   return (
-    <>
+    <div>
       <Header
         center={"리뷰 수정"}
         right={
@@ -173,9 +79,15 @@ const EditReview = () => {
       {isLoading ? (
         <Loading />
       ) : (
-        <ReviewForm review={review} setReview={setReview} onSubmit={onSubmit} />
+        <main>
+          <ReviewForm
+            review={review}
+            setReview={setReview}
+            onSubmit={onSubmit}
+          />
+        </main>
       )}
-    </>
+    </div>
   );
 };
 

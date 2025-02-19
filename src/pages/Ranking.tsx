@@ -69,7 +69,7 @@ const Ranking = () => {
   return (
     <RankingLayout>
       <Header center={"이번 주 공연 순위"} />
-      <div className="item_wrapper">
+      <main className="item_wrapper">
         {Array.isArray(ranks) &&
           ranks.map((item) => {
             return (
@@ -90,7 +90,7 @@ const Ranking = () => {
               </div>
             );
           })}
-      </div>
+      </main>
       <p className="notice">
         {`※ 집계 기간: ${weekBefore} ~ ${today}`} <br /> ※ 출처:
         (재)예술경영지원센터 공연예술통합전산망(www.kopis.or.kr)

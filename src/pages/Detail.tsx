@@ -107,44 +107,46 @@ const Detail = () => {
             />
           }
         />
-        <Content>
-          <div className="image">
-            <img src={ticket.image} />
-          </div>
-          <div className="title">
-            <h2>{ticket.title}</h2>
-          </div>
-          <div className="date">
-            <div className="label">날짜</div>
-            <div className="text">
-              {format(ticket.date, "yyyy년 MM월 dd일 HH시 mm분")}
+        <main>
+          <Content>
+            <div className="image">
+              <img src={ticket.image} />
             </div>
-          </div>
-          <div className="cast">
-            <div className="label">캐스트</div>
-            <div className="text">{ticket.cast}</div>
-          </div>
-          <div className="theater">
-            <div className="label">극장</div>
-            <div className="text">{ticket.theater}</div>
-          </div>
-          <div className="seat">
-            <div className="label">좌석</div>
-            <div className="text">{ticket.seat}</div>
-          </div>
-          <div className="price">
-            <div className="label">금액</div>
-            <div className="text">{ticket.price}</div>
-          </div>
-          <div className="site">
-            <div className="label">예매처</div>
-            <div className="text">{ticket.site}</div>
-          </div>
-          <div className="review">
-            <div className="label">리뷰</div>
-            <div className="text">{ticket.review}</div>
-          </div>
-        </Content>
+            <div className="title">
+              <h2>{ticket.title}</h2>
+            </div>
+            <div className="date">
+              <div className="label">날짜</div>
+              <div className="text">
+                {format(ticket.date, "yyyy년 MM월 dd일 HH시 mm분")}
+              </div>
+            </div>
+            <div className="cast">
+              <div className="label">캐스트</div>
+              <div className="text">{ticket.cast}</div>
+            </div>
+            <div className="theater">
+              <div className="label">극장</div>
+              <div className="text">{ticket.theater}</div>
+            </div>
+            <div className="seat">
+              <div className="label">좌석</div>
+              <div className="text">{ticket.seat}</div>
+            </div>
+            <div className="price">
+              <div className="label">금액</div>
+              <div className="text">{ticket.price}</div>
+            </div>
+            <div className="site">
+              <div className="label">예매처</div>
+              <div className="text">{ticket.site}</div>
+            </div>
+            <div className="review">
+              <div className="label">리뷰</div>
+              <div className="text">{ticket.review}</div>
+            </div>
+          </Content>
+        </main>
       </div>
       {isLoading ? <Loading /> : null}
     </Wrapper>

@@ -27,7 +27,7 @@ import NoContents from "../components/common/NoContents";
 
 const Wrapper = styled.div``;
 
-const Content = styled.div`
+const Content = styled.main`
   .item {
     position: relative;
     display: flex;

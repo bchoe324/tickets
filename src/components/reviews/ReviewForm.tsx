@@ -7,6 +7,7 @@ import { Review } from "../../pages/NewReview";
 
 const Form = styled.form`
   padding: 0 20px;
+  margin-top: 20px;
   .section:nth-child(n + 2) {
     margin-top: 60px;
   }

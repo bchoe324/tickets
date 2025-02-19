@@ -8,9 +8,11 @@ import { addDoc, collection } from "firebase/firestore";
 import { auth, db } from "../firebase";
 import { useNavigate } from "react-router-dom";
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  width: 100%;
+`;
 
-const Content = styled.div``;
+const Content = styled.main``;
 
 export interface Review {
   show: Show;

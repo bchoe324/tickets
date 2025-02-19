@@ -104,7 +104,7 @@ const Show = () => {
       {isLoading ? (
         <Loading />
       ) : (
-        <div>
+        <main>
           <div className="info_wrapper">
             <div className="poster">
               <img src={data.poster} />
@@ -158,7 +158,7 @@ const Show = () => {
               }
             />
           </div>
-        </div>
+        </main>
       )}
     </ShowLayout>
   );
