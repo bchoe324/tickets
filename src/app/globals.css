@@ -1,26 +1,102 @@
+@import url("https://use.typekit.net/pls1fpn.css");
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: rgb(246, 246, 246);
+  --foreground: #fff;
+  --color-white: #fff;
+  --color-text: #333;
+  --color-primary-500: #6002ee;
+  --color-primary-400: #7e3ff2;
+  --color-primary-300: #9965f4;
+  --color-primary-200: #b794f6;
+  --font-title: "contempora-script", sans-serif;
+  --max-width: 600px;
+  --min-width: 300px;
+  --header-height: 62px;
+  --nav-height: 78px;
+  --layout-margin: 20px;
+  --content-gap: 60px;
+  --font-size-h2: 18px;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-title: var(--font-title);
+  --container-width-max: var(--max-width);
+  --container-width-min: var(--min-width);
+  --spacing-nav-height: var(--nav-height);
+  --spacing-layout: var(--layout-margin);
+  --spacing-content-gap: var(--content-gap);
+  --text-h2: var(--font-size-h2);
 }
 
 body {
+  width: 100%;
   background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--color-text);
+  font-size: 16px;
+}
+
+#root {
+  max-width: var(--max-width);
+  min-width: var(--min-width);
+  width: 100%;
+  min-height: 100vh;
+  height: 100%;
+  margin: 0 auto;
+  background-color: var(--foreground);
+  box-shadow: rgba(000, 000, 000, 0.1) 0px 0px 25px 0px;
+  display: flex;
+}
+
+#root > div {
+  flex: 1 1 auto;
+}
+
+h1 {
+  font-family: "contempora-script", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+button {
+  cursor: pointer;
+}
+
+header {
+  width: 100%;
+  max-width: var(--max-width);
+  min-width: var(--min-width);
+  padding: 20px;
+  height: var(--header-height);
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+  background-color: var(--color-white);
+  border-bottom: 1px solid #999;
+  display: flex;
+  align-items: center;
+}
+
+main {
+  width: 100%;
+  align-self: flex-start;
+  padding: var(--header-height) 0 var(--nav-height);
+}
+
+@utility home-section {
+  @apply pt-layout px-layout pb-content-gap;
+}
+
+@utility home-h2 {
+  @apply text-h2 font-semibold;
+}
+
+@utility list-poster {
+  @apply relative flex-[0_0_auto] w-30 h-full aspect-3/4 shadow-[0px_2px_8px_0px_rgba(99,_99,_99,_0.2)];
 }
