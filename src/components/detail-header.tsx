@@ -1,5 +1,8 @@
+"use client";
+
 import { ReactNode } from "react";
 import PrevIcon from "@/assets/icons/PrevIcon";
+import { useRouter } from "next/navigation";
 
 export default function DetailHeader({
   centerChild,
@@ -8,10 +11,15 @@ export default function DetailHeader({
   centerChild?: ReactNode;
   rightChild?: ReactNode;
 }) {
+  const router = useRouter();
+  function handleBack() {
+    router.back();
+  }
+
   return (
     <header className="justify-between">
       <div className="flex-[1_1_20%] flex items-center">
-        <button className="block h-full">
+        <button onClick={handleBack} className="block h-full w-[32px]">
           <div className="w-auto h-[32px] hover:*:opacity-80 active:*:opacity-80">
             <PrevIcon fill="currentColor" />
           </div>

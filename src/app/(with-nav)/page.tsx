@@ -12,8 +12,8 @@ export default async function Home() {
     <>
       <section className="home-section pr-0">
         <div className="mb-layout flex justify-between items-center;">
-          <h2 className="home-h2">공연 순위</h2>
-          <Link href={"/rank"} className="flex-[0_0_auto] flex ">
+          <h2>공연 순위</h2>
+          <Link href={"/show"} className="flex-[0_0_auto] flex ">
             더보기{" "}
             <span className="w-[24px]">
               <NextIcon fill="currentColor" />
@@ -23,7 +23,7 @@ export default async function Home() {
         <RankSlide rankArray={rankArray} />
       </section>
       <section className="home-section">
-        <h2 className="home-h2">공연 리뷰</h2>
+        <h2>공연 리뷰</h2>
       </section>
     </>
   );
