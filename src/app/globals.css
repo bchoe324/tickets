@@ -122,3 +122,28 @@ main {
 @utility show-list-info-title {
   @apply font-semibold mt-0;
 }
+
+@utility auth-layout {
+  @apply max-w-[400px] w-full h-full p-layout mx-auto;
+  .title {
+    @apply mb-content-gap text-center;
+    h1 {
+      @apply text-[48px];
+    }
+  }
+  h2 {
+    @apply text-[32px] font-medium text-center mb-[40px];
+  }
+  form {
+    @apply flex flex-col w-full;
+    label {
+      @apply block font-medium mb-[5px];
+    }
+    input {
+      @apply p-[10px] w-full border border-zinc-400 rounded-[8px];
+    }
+    button {
+      @apply text-white bg-primary-400 p-[14px] mt-[40px] rounded-[8px];
+    }
+  }
+}

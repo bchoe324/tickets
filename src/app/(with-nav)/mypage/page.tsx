@@ -1,3 +1,13 @@
+"use client";
+
+import ProfileCard from "@/components/profile-card";
+import { logout } from "@/lib/supabase/logout";
+
 export default function Page() {
-  return <div>mypage</div>;
+  return (
+    <>
+      <ProfileCard />
+      <button onClick={logout}>로그아웃</button>
+    </>
+  );
 }
