@@ -9,7 +9,7 @@ export default async function Page({
 }) {
   const id = (await params).id;
 
-  const url = `${process.env.NEXT_PUBLIC_SITE_URL}/api/openApi/restful/pblprfr/${id}?service=${process.env.KOPIS_API_KEY}`;
+  const url = `http://www.kopis.or.kr/openApi/restful/pblprfr/${id}?service=${process.env.KOPIS_API_KEY}`;
   const response = await fetch(url, {
     cache: "force-cache",
   });

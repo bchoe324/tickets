@@ -5,14 +5,6 @@ const nextConfig: NextConfig = {
   images: {
     domains: ["www.kopis.or.kr"],
   },
-  async rewrites() {
-    return [
-      {
-        source: "/api/openApi/:path*",
-        destination: `https://www.kopis.or.kr/openApi/:path*`,
-      },
-    ];
-  },
 };
 
 export default nextConfig;
