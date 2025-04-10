@@ -1,6 +1,6 @@
 export interface TicketData {
   title: string;
-  image: string;
+  imageUrl: string;
   date: number;
   cast: string;
   theater: string;

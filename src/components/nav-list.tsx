@@ -28,7 +28,7 @@ export default function NavList() {
   const pathname = usePathname();
   console.log(pathname);
   return (
-    <nav className="bg-black text-white w-full max-w-width-max min-w-width-min h-nav-height p-[15px] fixed bottom-0 left-[50%] transform translate-x-[-50%] z-10">
+    <nav className="bg-black text-white width-bounded h-nav-height p-[15px] fixed bottom-0 left-[50%] transform translate-x-[-50%] z-10">
       <ul className="flex justify-between">
         {navItems.map((item) => (
           <li key={item.text}>

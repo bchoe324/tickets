@@ -93,8 +93,105 @@ main {
   padding: var(--header-height) 0 var(--nav-height);
 }
 
+/* Date Picker Custom Style */
+.date_picker {
+  flex: 4 1 40px;
+  input {
+    width: 100%;
+  }
+  .react-datepicker-wrapper {
+    width: 100%;
+  }
+  .react-datepicker__input-container {
+    display: flex;
+    align-items: center;
+    svg {
+      padding: 0;
+    }
+  }
+  .react-datepicker {
+    border: 1px solid #ccc;
+    border-radius: 0.8rem;
+    overflow: hidden;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  }
+  .react-datepicker__navigation-icon::before,
+  .react-datepicker__year-read-view--down-arrow,
+  .react-datepicker__month-read-view--down-arrow,
+  .react-datepicker__month-year-read-view--down-arrow {
+    border-width: 2px 2px 0 0;
+  }
+  .react-datepicker__triangle {
+    display: none;
+  }
+  .react-datepicker__header {
+    background-color: #fff;
+    border-bottom: 1px solid #ccc;
+  }
+  .react-datepicker__time-container {
+    border-left: 1px solid #ccc;
+  }
+  .react-datepicker__time-container
+    .react-datepicker__time
+    .react-datepicker__time-box
+    ul.react-datepicker__time-list
+    li.react-datepicker__time-list-item--selected,
+  .react-datepicker__day--selected,
+  .react-datepicker__day--in-selecting-range,
+  .react-datepicker__day--in-range,
+  .react-datepicker__month-text--selected,
+  .react-datepicker__month-text--in-selecting-range,
+  .react-datepicker__month-text--in-range,
+  .react-datepicker__quarter-text--selected,
+  .react-datepicker__quarter-text--in-selecting-range,
+  .react-datepicker__quarter-text--in-range,
+  .react-datepicker__year-text--selected,
+  .react-datepicker__year-text--in-selecting-range,
+  .react-datepicker__year-text--in-range {
+    background-color: var(--color-primary-400);
+  }
+  .react-datepicker__day--selected:not([aria-disabled="true"]):hover,
+  .react-datepicker__day--in-selecting-range:not([aria-disabled="true"]):hover,
+  .react-datepicker__day--in-range:not([aria-disabled="true"]):hover,
+  .react-datepicker__month-text--selected:not([aria-disabled="true"]):hover,
+  .react-datepicker__month-text--in-selecting-range:not(
+      [aria-disabled="true"]
+    ):hover,
+  .react-datepicker__month-text--in-range:not([aria-disabled="true"]):hover,
+  .react-datepicker__quarter-text--selected:not([aria-disabled="true"]):hover,
+  .react-datepicker__quarter-text--in-selecting-range:not(
+      [aria-disabled="true"]
+    ):hover,
+  .react-datepicker__quarter-text--in-range:not([aria-disabled="true"]):hover,
+  .react-datepicker__year-text--selected:not([aria-disabled="true"]):hover,
+  .react-datepicker__year-text--in-selecting-range:not(
+      [aria-disabled="true"]
+    ):hover,
+  .react-datepicker__year-text--in-range:not([aria-disabled="true"]):hover,
+  .react-datepicker__time-container
+    .react-datepicker__time
+    .react-datepicker__time-box
+    ul.react-datepicker__time-list
+    li.react-datepicker__time-list-item--selected:hover {
+    background-color: var(--color-primary-300);
+  }
+}
+/* Date Picker Custom Style */
+
+@utility width-bounded {
+  @apply w-full max-w-width-max min-w-width-min;
+}
+
 @utility flex-center {
   @apply flex justify-center items-center;
+}
+
+@utility flex-start {
+  @apply flex justify-start items-center;
+}
+
+@utility flex-between {
+  @apply flex justify-between items-center;
 }
 
 @utility flex-fixed {
@@ -144,6 +241,81 @@ main {
     }
     button {
       @apply text-white bg-primary-400 p-[14px] mt-[40px] rounded-[8px];
+    }
+  }
+}
+
+@utility ticket-form-layout {
+  .row {
+    @apply p-layout flex-start nth-[n+4]:border-t-1 nth-[n+4]:border-zinc-300;
+  }
+  label,
+  .label {
+    @apply flex-[1_1_40px];
+  }
+
+  input,
+  .input {
+    @apply flex-[4_1_40px] focus:outline-0;
+  }
+  .image {
+    label {
+      @apply flex-center flex-col;
+    }
+    input {
+      @apply hidden;
+    }
+    .preview {
+      @apply w-[48px] h-[48px];
+      svg,
+      img {
+        @apply w-full h-auto;
+      }
+    }
+  }
+  .title,
+  title input {
+    @apply text-[18px] font-semibold;
+  }
+  .review {
+    @apply flex flex-col items-start;
+    .text,
+    textarea {
+      @apply w-full resize-none;
+    }
+  }
+}
+
+@utility tickets-calendar {
+  .calendar-header {
+    @apply p-layout flex-between text-center;
+    .title {
+      @apply flex items-center;
+    }
+    .button {
+      @apply block p-[10px];
+      img,
+      svg {
+        @apply w-auto h-[28px];
+      }
+    }
+  }
+  .calendar-body {
+    @apply px-layout;
+    .weekday-header {
+      @apply flex-between text-center;
+      > div {
+        @apply flex-none basis-[calc(100%/7)] h-[60px] flex-center;
+      }
+    }
+    .date-table {
+      @apply flex-between flex-wrap text-center;
+      .date-cell {
+        @apply relative overflow-hidden rounded-[8px] flex-none basis-[calc(100%/7)] flex-center cursor-pointer;
+        &.today {
+          @apply border border-primary-400;
+        }
+      }
     }
   }
 }
