@@ -255,7 +255,7 @@ main {
   }
 
   input,
-  .input {
+  .text {
     @apply flex-[4_1_40px] focus:outline-0;
   }
   .image {
@@ -311,9 +311,15 @@ main {
     .date-table {
       @apply flex-between flex-wrap text-center;
       .date-cell {
-        @apply relative overflow-hidden rounded-[8px] flex-none basis-[calc(100%/7)] flex-center cursor-pointer;
+        @apply relative overflow-hidden aspect-square flex-none basis-[calc(100%/7)] flex flex-col justify-center;
         &.today {
           @apply border border-primary-400;
+        }
+        > div {
+          @apply flex-1;
+          img {
+            @apply w-full h-full object-cover;
+          }
         }
       }
     }

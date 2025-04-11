@@ -15,6 +15,7 @@ import {
   getDay,
   getDaysInMonth,
   getMonth,
+  getWeeksInMonth,
   getYear,
   isToday,
   startOfMonth,
@@ -24,8 +25,8 @@ import { ko } from "date-fns/locale";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useMemo } from "react";
-import BottomSheet from "./BottomSheet";
+import { useMemo, useState } from "react";
+import BottomSheet from "./bottom-sheet";
 
 const DaysOfWeek = ["일", "월", "화", "수", "목", "금", "토"];
 
@@ -40,9 +41,11 @@ export default function Calendar({
   const startDate = startOfMonth(pivotDate);
   const daysInMonth = getDaysInMonth(pivotDate);
   const startDay = getDay(startDate);
+  const weeksInMonth = getWeeksInMonth(pivotDate);
   const year = getYear(pivotDate);
   const month = getMonth(pivotDate);
   const { isOpen, openModal, closeModal } = useModal();
+  const [selectedTicket, setSelectedTicket] = useState<TicketData[]>([]);
 
   function handleMonthChange(delta: number) {
     const newDate =
@@ -58,8 +61,9 @@ export default function Calendar({
     if (tickets.length <= 0) {
       return;
     } else if (tickets.length === 1) {
-      router.push(`/tickets/detail/${tickets[0].id}`);
+      router.push(`/my-tickets/detail/${tickets[0].id}`);
     } else {
+      setSelectedTicket(tickets);
       openModal("select-ticket");
     }
   }
@@ -76,18 +80,24 @@ export default function Calendar({
     return map;
   }, [tickets]);
 
-  const calendarDays = Array.from({ length: daysInMonth + startDay }).map(
+  const calendarDays = Array.from({ length: weeksInMonth * 7 }).map(
     (_, idx) => {
-      const day = (startDay + idx) % 7;
       const cellDate = idx - startDay + 1;
-      if (cellDate <= 0) return null;
+      if (cellDate <= 0 || cellDate > daysInMonth)
+        return {
+          cellDate: "",
+          dateKey: "",
+          dailyTickets: [],
+          today: false,
+        };
       const date = new Date(year, month, cellDate);
       const dateKey = format(date, "yyyy-MM-dd");
       const today = isToday(date);
       const dailyTickets = ticketMap.get(dateKey) ?? [];
-      return { dateKey, cellDate, day, dailyTickets, today };
+      return { dateKey, cellDate, dailyTickets, today };
     }
   );
+  console.log(calendarDays);
 
   return (
     <>
@@ -115,10 +125,10 @@ export default function Calendar({
         </div>
         <div className="date-table">
           {calendarDays.map(
-            (item) =>
+            (item, idx) =>
               item && (
                 <div
-                  key={item.cellDate}
+                  key={idx}
                   className={`${item.today ? "today " : ""}date-cell`}
                   onClick={() => handleDateClick(item.dailyTickets)}
                 >
@@ -127,85 +137,90 @@ export default function Calendar({
                         <div key={ticket.id}>
                           <Image
                             src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${ticket.imageUrl}`}
-                            width={60}
-                            height={80}
+                            width={100}
+                            height={200}
                             alt={`${ticket.title}의 대표 이미지`}
                           />
                         </div>
                       ))
                     : item.cellDate}
-                  {/* 티켓 선택 모달 */}
-                  {isOpen("select-ticket") ? (
-                    <BottomSheet
-                      title="티켓 선택"
-                      onClose={() => closeModal("select-ticket")}
-                    >
-                      <div>
-                        {item.dailyTickets.length > 1
-                          ? item.dailyTickets.map((ticket) => (
-                              <div key={ticket.id}>
-                                <div>
-                                  <Image
-                                    src={ticket.imageUrl}
-                                    width={100}
-                                    height={200}
-                                    alt={`${ticket.title} 대표 이미지`}
-                                  />
-                                </div>
-                                <div className="text">
-                                  <p className="title">{ticket.title}</p>
-                                  <p className="date">
-                                    <Image
-                                      src={calendar}
-                                      width={15}
-                                      height={15}
-                                      alt="날짜 아이콘"
-                                    />
-                                    {format(
-                                      ticket.date,
-                                      "yyyy년 MM월 dd일 (eee) HH시 mm분",
-                                      { locale: ko }
-                                    )}
-                                  </p>
-                                  <p className={!ticket.theater ? `empty` : ""}>
-                                    <Image
-                                      src={theater}
-                                      width={15}
-                                      height={15}
-                                      alt="공연장 아이콘"
-                                    />
-                                    {ticket.theater || "공연장"}
-                                  </p>
-                                  <p className={!ticket.seat ? `empty` : ""}>
-                                    <Image
-                                      src={seat}
-                                      width={15}
-                                      height={15}
-                                      alt="좌석 아이콘"
-                                    />
-                                    {ticket.seat || "좌석"}
-                                  </p>
-                                  <p className={!ticket.cast ? `empty` : ""}>
-                                    <Image
-                                      src={cast}
-                                      width={15}
-                                      height={15}
-                                      alt="출연진 아이콘"
-                                    />
-                                    {ticket.cast || "출연진"}
-                                  </p>
-                                </div>
-                              </div>
-                            ))
-                          : null}
-                      </div>
-                    </BottomSheet>
-                  ) : null}
                 </div>
               )
           )}
         </div>
       </div>
+      {/* 티켓 선택 모달 */}
+      {isOpen("select-ticket") ? (
+        <BottomSheet
+          title="티켓 선택"
+          onClose={() => closeModal("select-ticket")}
+        >
+          <div>
+            {selectedTicket.length > 1
+              ? selectedTicket.map((ticket) => (
+                  <Link
+                    href={`/my-tickets/detail/${ticket.id}`}
+                    key={ticket.id}
+                    className="flex border border-zinc-300 rounded-[8px] overflow-hidden nth-[n+2]:mt-layout"
+                  >
+                    <div className="flex-fixed w-30">
+                      <Image
+                        className="w-full h-full object-cover"
+                        src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${ticket.imageUrl}`}
+                        width={100}
+                        height={200}
+                        alt={`${ticket.title} 대표 이미지`}
+                      />
+                    </div>
+                    <div className="flex-1 text-left p-[10px] *:text-[14px] *:flex-start [&_img]:w-[15px] [&_img]:mr-[5px]">
+                      <p className="title">{ticket.title}</p>
+                      <p className="date">
+                        <Image
+                          src={calendar}
+                          width={15}
+                          height={15}
+                          alt="날짜 아이콘"
+                        />
+                        {format(
+                          ticket.date,
+                          "yyyy년 MM월 dd일 (eee) HH시 mm분",
+                          { locale: ko }
+                        )}
+                      </p>
+                      <p className={!ticket.theater ? `empty` : ""}>
+                        <Image
+                          src={theater}
+                          width={15}
+                          height={15}
+                          alt="공연장 아이콘"
+                        />
+                        {ticket.theater || "공연장"}
+                      </p>
+                      <p className={!ticket.seat ? `empty` : ""}>
+                        <Image
+                          src={seat}
+                          width={15}
+                          height={15}
+                          alt="좌석 아이콘"
+                        />
+                        {ticket.seat || "좌석"}
+                      </p>
+                      <p className={!ticket.cast ? `empty` : ""}>
+                        <Image
+                          src={cast}
+                          width={15}
+                          height={15}
+                          alt="출연진 아이콘"
+                        />
+                        {ticket.cast || "출연진"}
+                      </p>
+                    </div>
+                  </Link>
+                ))
+              : null}
+          </div>
+        </BottomSheet>
+      ) : null}
     </>
   );
 }
