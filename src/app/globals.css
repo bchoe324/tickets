@@ -325,3 +325,17 @@ main {
     }
   }
 }
+
+@utility review-form-layout {
+  .section {
+    @apply mt-[60px];
+    .notice {
+      @apply font-bold mb-layout;
+    }
+  }
+  .recommend {
+    .icon {
+      @apply flex-center flex-auto mb-[10px] py-[8px] px-[30px] rounded-[28px] border border-zinc-400 [&_svg]:w-[24px] [&.checked]:border-primary-400 [&.checked]:bg-primary-400;
+    }
+  }
+}

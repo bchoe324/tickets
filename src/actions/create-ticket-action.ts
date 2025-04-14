@@ -3,7 +3,7 @@
 import { getAccessToken } from "@/utils/get-access-token";
 import { redirect } from "next/navigation";
 
-export async function CreateTicketAction(formData: FormData) {
+export async function createTicketAction(formData: FormData) {
   const accessToken = await getAccessToken();
 
   const response = await fetch(

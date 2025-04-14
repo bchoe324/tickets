@@ -47,7 +47,7 @@ export default function Calendar({
   const { isOpen, openModal, closeModal } = useModal();
   const [selectedTicket, setSelectedTicket] = useState<TicketData[]>([]);
 
-  function handleMonthChange(delta: number) {
+  const handleMonthChange = (delta: number) => {
     const newDate =
       delta > 0
         ? addMonths(pivotDate, Math.abs(delta))
@@ -55,9 +55,9 @@ export default function Calendar({
     const year = getYear(newDate);
     const month = getMonth(newDate);
     router.push(`/tickets?year=${year}&month=${month}`);
-  }
+  };
 
-  function handleDateClick(tickets: TicketData[]) {
+  const handleDateClick = (tickets: TicketData[]) => {
     if (tickets.length <= 0) {
       return;
     } else if (tickets.length === 1) {
@@ -66,7 +66,7 @@ export default function Calendar({
       setSelectedTicket(tickets);
       openModal("select-ticket");
     }
-  }
+  };
 
   const ticketMap = useMemo(() => {
     const map = new Map<string, TicketData[]>();

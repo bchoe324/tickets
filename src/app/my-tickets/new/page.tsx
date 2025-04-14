@@ -1,4 +1,4 @@
-import { CreateTicketAction } from "@/actions/create-ticket-action";
+import { createTicketAction } from "@/actions/create-ticket-action";
 import DetailHeader from "@/components/detail-header";
 import TicketFormFields from "@/components/ticket-form-fields";
 
@@ -17,7 +17,7 @@ export default async function Page() {
         <form
           id="ticket"
           encType="multipart/form-data"
-          action={CreateTicketAction}
+          action={createTicketAction}
         >
           <TicketFormFields />
         </form>

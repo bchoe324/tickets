@@ -12,9 +12,9 @@ export default function DetailHeader({
   rightChild?: ReactNode;
 }) {
   const router = useRouter();
-  function handleBack() {
+  const handleBack = () => {
     router.back();
-  }
+  };
 
   return (
     <header className="justify-between">
