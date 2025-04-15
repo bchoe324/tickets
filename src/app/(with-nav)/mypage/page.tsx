@@ -53,7 +53,7 @@ export default async function Page() {
       <section>
         <ul>
           <li>
-            <Link href={`/review/list?filter=myReview`}>내가 쓴 리뷰</Link>
+            <Link href={`/review/`}>내가 쓴 리뷰</Link>
           </li>
           <li>
             <Link href={""}>관심 있는 공연</Link>

@@ -9,7 +9,6 @@ export default function TicketFormFields() {
   const [rawPrice, setRawPrice] = useState(0);
   const [formattedPrice, setFormattedPrice] = useState("");
   const [preview, setPreview] = useState("");
-  const [file, setFile] = useState<File | null>(null);
   const [date, setDate] = useState(new Date());
 
   const onChangePrice = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -24,8 +23,6 @@ export default function TicketFormFields() {
     // 파일 개수 & 파일 용량 1MB 이하
     if (files && files?.length === 1) {
       if (files[0].size > 1024 ** 2) return;
-      // 파일 저장
-      setFile(files[0]);
       // 미리보기
       setPreview(URL.createObjectURL(files[0]));
     }

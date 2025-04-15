@@ -11,20 +11,27 @@ export interface TicketData {
   id: string;
 }
 
-export interface ReviewData extends Show {
-  show: Show;
+export interface ReviewData extends ShowCard {
+  show: ShowCard;
   uid: string;
   createdAt: number;
   recommend: boolean | null;
   review: string;
 }
 
-export interface Show {
+export interface ShowCard {
   id: string;
-  poster: string;
   title: string;
-  duration: string;
-  theater: string;
+  poster: string;
+}
+
+export interface Show {
+  mt20id: string;
+  poster: string;
+  prfnm: string;
+  prfpdfrom: string;
+  prfpdto: string;
+  fcltynm: string;
 }
 
 export interface Rank {

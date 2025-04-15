@@ -6,10 +6,12 @@ export default async function Page({
 }: {
   params: Promise<{ id: string }>;
 }) {
+  const id = (await params).id;
   return (
     <>
       <DetailHeader />
       <main>
+        {id}
         <form action="">
           <TicketFormFields />
         </form>

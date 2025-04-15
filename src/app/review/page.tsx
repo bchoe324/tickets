@@ -1,1 +1,36 @@
-export default function Page() {}
+import FetchReviewData from "@/lib/fetch-review-data";
+import ReviewItem from "@/components/review-item";
+import { ReviewData } from "@/types";
+import DetailHeader from "@/components/detail-header";
+import FloatingButton from "@/components/floating-button";
+import Link from "next/link";
+import Image from "next/image";
+import plus from "@/assets/icons/plus.svg";
+
+export default async function Page() {
+  const reviews: ReviewData[] = await FetchReviewData();
+
+  return (
+    <>
+      <DetailHeader centerChild={"공연 리뷰"} />
+      <main>
+        {reviews.length > 0 ? (
+          reviews.map((review) => (
+            <div className="review-item-layout" key={review.createdAt}>
+              <ReviewItem review={review} />
+            </div>
+          ))
+        ) : (
+          <p>리뷰 데이터를 불러올 수 없습니다.</p>
+        )}
+      </main>
+      <aside>
+        <FloatingButton>
+          <Link href={"/review/new/search"} className="h-full flex-center">
+            <Image src={plus} width={36} height={36} alt="새 리뷰 작성" />
+          </Link>
+        </FloatingButton>
+      </aside>
+    </>
+  );
+}

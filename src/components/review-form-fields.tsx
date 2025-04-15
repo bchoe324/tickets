@@ -30,7 +30,7 @@ export default function ReviewFormFields() {
               type="radio"
               id="like"
               name="recommend"
-              value="1"
+              value={1}
               onChange={handleChangeRadio}
               checked={selectedId === "like" ? true : false}
             />
@@ -53,7 +53,7 @@ export default function ReviewFormFields() {
               type="radio"
               id="dislike"
               name="recommend"
-              value="0"
+              value={0}
               onChange={handleChangeRadio}
               checked={selectedId === "dislike" ? true : false}
             />

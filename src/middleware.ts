@@ -43,6 +43,7 @@ export async function middleware(req: NextRequest) {
       }
       return nextResponse;
     }
+    console.warn("Refresh token request failed", response.status);
     // 재발급 실패 시 로그인 페이지로 리다이렉트
     return NextResponse.redirect(new URL("/login", req.url));
   }
@@ -54,6 +55,6 @@ export async function middleware(req: NextRequest) {
   return NextResponse.next();
 }
 
-// export const config = {
-//   matcher: ["/((?!^$|login|join|_next/static|_next/image|favicon.ico).*)"],
-// };
+export const config = {
+  matcher: ["/((?!^$|login|join|_next/static|_next/image|favicon.ico).*)"],
+};

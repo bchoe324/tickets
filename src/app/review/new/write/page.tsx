@@ -1,10 +1,15 @@
-import { createReviewAction } from "@/actions/create-review-action";
+import createReviewAction from "@/actions/create-review-action";
 import DetailHeader from "@/components/detail-header";
 import ReviewFormFields from "@/components/review-form-fields";
 import { XMLParser } from "fast-xml-parser";
 import Image from "next/image";
 
-async function ShowInfo({ showId }: { showId: string }) {
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: Promise<{ showId: string }>;
+}) {
+  const showId = (await searchParams).showId;
   const url = `http://www.kopis.or.kr/openApi/restful/pblprfr/${showId}?service=${process.env.KOPIS_API_KEY}`;
 
   const response = await fetch(url);
@@ -15,7 +20,6 @@ async function ShowInfo({ showId }: { showId: string }) {
 
   const parser = new XMLParser();
   const jsonResult = parser.parse(xmlText);
-
   const {
     prfnm: title,
     poster: poster,
@@ -23,34 +27,6 @@ async function ShowInfo({ showId }: { showId: string }) {
     prfpdto: endDate,
     fcltynm: theater,
   } = await jsonResult.dbs.db;
-
-  return (
-    <div>
-      <p className="font-bold mb-[15px]">관람 공연</p>
-      <div className="flex p-[10px] border border-primary-400 rounded-[8px]">
-        <Image
-          src={poster}
-          width={60}
-          height={80}
-          alt={`${title} 포스터`}
-          className="flex-fixed w-14"
-        />
-        <div className="ml-layout flex-auto *:nth-[n+2]:mt-[5px] *:text-[14px] ">
-          <p className="text-[16px] font-bold">{title}</p>
-          <p className="duration">{`${startDate} ~ ${endDate}`}</p>
-          <p className="theater">{theater}</p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-export default async function Page({
-  searchParams,
-}: {
-  searchParams: Promise<{ showId: string }>;
-}) {
-  const showId = (await searchParams).showId;
 
   return (
     <>
@@ -64,13 +40,31 @@ export default async function Page({
       />
       <main>
         <div className="p-layout mt-layout">
-          <ShowInfo showId={showId} />
+          <div>
+            <p className="font-bold mb-[15px]">관람 공연</p>
+            <div className="flex p-[10px] border border-primary-400 rounded-[8px]">
+              <Image
+                src={poster}
+                width={60}
+                height={80}
+                alt={`${title} 포스터`}
+                className="flex-fixed w-14"
+              />
+              <div className="ml-layout flex-auto *:nth-[n+2]:mt-[5px] *:text-[14px] ">
+                <p className="text-[16px] font-bold">{title}</p>
+                <p className="duration">{`${startDate} ~ ${endDate}`}</p>
+                <p className="theater">{theater}</p>
+              </div>
+            </div>
+          </div>
           <form
             id="review"
             action={createReviewAction}
             className="review-form-layout"
           >
             <input type="text" name="showId" value={showId} hidden readOnly />
+            <input type="text" name="title" value={title} hidden readOnly />
+            <input type="text" name="poster" value={poster} hidden readOnly />
             <ReviewFormFields />
           </form>
         </div>

@@ -2,11 +2,12 @@ import InfoIcon from "@/assets/icons/InfoIcon";
 import DetailHeader from "@/components/detail-header";
 import ShowSearchbar from "@/components/show-searchbar";
 import FetchSearchShowResult from "@/lib/fetch-search-show-result";
+import { Show } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
 
 async function SearchResult({ q }: { q: string }) {
-  const result = await FetchSearchShowResult(q);
+  const result: Show[] = await FetchSearchShowResult(q);
 
   return (
     <div className="px-layout">
