@@ -35,7 +35,7 @@ const ActionMenu = ({ items }: ActionMenuProps) => {
   }, [isOpen]);
 
   return (
-    <div className="action_button" ref={menuRef}>
+    <div className="action-button" ref={menuRef}>
       <span
         className="block w-full h-full cursor-pointer hover:opacity-80"
         onClick={toggleButton}

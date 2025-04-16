@@ -1,13 +1,13 @@
 import InfoIcon from "@/assets/icons/InfoIcon";
 import DetailHeader from "@/components/detail-header";
 import ShowSearchbar from "@/components/show-searchbar";
-import FetchSearchShowResult from "@/lib/fetch-search-show-result";
+import fetchSearchShowResult from "@/lib/fetch-search-show-result";
 import { Show } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
 
 async function SearchResult({ q }: { q: string }) {
-  const result: Show[] = await FetchSearchShowResult(q);
+  const result: Show[] = await fetchSearchShowResult(q);
 
   return (
     <div className="px-layout">
@@ -55,7 +55,7 @@ export default async function Page({
 
   return (
     <>
-      <DetailHeader centerChild={"새 리뷰 작성"} />
+      <DetailHeader centerChild={"관람 후기 작성"} />
       <main>
         <ShowSearchbar />
         {q ? <SearchResult q={q} /> : null}

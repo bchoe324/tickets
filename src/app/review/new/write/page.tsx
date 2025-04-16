@@ -31,7 +31,7 @@ export default async function Page({
   return (
     <>
       <DetailHeader
-        centerChild={"새 리뷰 작성"}
+        centerChild={"관람 후기 작성"}
         rightChild={
           <button type="submit" form="review">
             등록
@@ -65,6 +65,15 @@ export default async function Page({
             <input type="text" name="showId" value={showId} hidden readOnly />
             <input type="text" name="title" value={title} hidden readOnly />
             <input type="text" name="poster" value={poster} hidden readOnly />
+            <input
+              type="text"
+              name="startDate"
+              value={startDate}
+              hidden
+              readOnly
+            />
+            <input type="text" name="endDate" value={endDate} hidden readOnly />
+            <input type="text" name="theater" value={theater} hidden readOnly />
             <ReviewFormFields />
           </form>
         </div>

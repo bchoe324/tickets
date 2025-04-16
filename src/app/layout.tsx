@@ -18,6 +18,9 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="stylesheet" href="https://use.typekit.net/pls1fpn.css" />
+      </head>
       <body className={fontPretendard.className}>
         <div id="root">{children}</div>
       </body>

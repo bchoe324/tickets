@@ -1,27 +1,30 @@
-import fetchReviewData from "@/lib/fetch-review-data";
-import ReviewItem from "@/components/review-item";
-import { ReviewData } from "@/types";
 import DetailHeader from "@/components/detail-header";
 import FloatingButton from "@/components/floating-button";
+import NoContent from "@/components/no-contents";
+import ReviewItem from "@/components/review-item";
+import fetchReviewData from "@/lib/fetch-review-data";
+import { ReviewData } from "@/types";
 import Link from "next/link";
 import Image from "next/image";
 import plus from "@/assets/icons/plus.svg";
 
 export default async function Page() {
-  const reviews: ReviewData[] = await fetchReviewData();
+  const reviews: ReviewData[] = await fetchReviewData("myreview");
 
   return (
     <>
-      <DetailHeader centerChild={"공연 리뷰"} />
+      <DetailHeader centerChild={"내 관람 후기"} />
       <main>
         {reviews.length > 0 ? (
           reviews.map((review) => (
             <div className="review-item-layout" key={review.createdAt}>
-              <ReviewItem review={review} isMenuVisible={false} />
+              <ReviewItem review={review} isMenuVisible={true} />
             </div>
           ))
         ) : (
-          <p>리뷰 데이터를 불러올 수 없습니다.</p>
+          <NoContent>
+            <p>작성한 관람 후기가 없어요.</p>
+          </NoContent>
         )}
       </main>
       <aside>

@@ -1,6 +1,6 @@
 import { getAccessToken } from "@/utils/get-access-token";
 
-export default async function FetchReviewData(
+export default async function fetchReviewData(
   endpoint?: "recent" | "myreview"
 ) {
   const accessToken = await getAccessToken();

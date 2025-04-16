@@ -6,12 +6,46 @@ import ThumbDownIcon from "@/assets/icons/ThumbDownIcon";
 import ToggleText from "@/components/toggle-text";
 import getRelativeTime from "@/utils/get-relative-time";
 import Image from "next/image";
+import ActionMenu from "./action-menu";
+import EditIcon from "@/assets/icons/EditIcon";
+import DeleteIcon from "@/assets/icons/DeleteIcon";
+import { useRouter } from "next/navigation";
 
-export default function ReviewItem({ review }: { review: ReviewData }) {
+export default function ReviewItem({
+  review,
+  isMenuVisible,
+}: {
+  review: ReviewData;
+  isMenuVisible: boolean;
+}) {
   const now = new Date().getTime();
+  const router = useRouter();
 
   return (
     <>
+      {isMenuVisible ? (
+        <ActionMenu
+          items={[
+            {
+              element: (
+                <span>
+                  <EditIcon fill="#333" />
+                  리뷰 수정하기
+                </span>
+              ),
+              onClick: () => router.push(`/review/edit/${review.id}`),
+            },
+            {
+              element: (
+                <span className="delete_button">
+                  <DeleteIcon fill="#FF5252" /> 리뷰 삭제하기
+                </span>
+              ),
+              onClick: () => {},
+            },
+          ]}
+        />
+      ) : null}
       <div className="poster">
         <Image
           src={review.show.poster}

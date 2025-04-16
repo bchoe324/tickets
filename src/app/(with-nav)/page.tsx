@@ -3,7 +3,7 @@ import RankSlide from "@/components/rank-slide";
 import Link from "next/link";
 import NextIcon from "@/assets/icons/NextIcon";
 import { toast } from "sonner";
-import FetchReviewData from "@/lib/fetch-review-data";
+import fetchReviewData from "@/lib/fetch-review-data";
 import { ReviewData } from "@/types";
 import ReviewItem from "@/components/review-item";
 
@@ -18,14 +18,14 @@ function ToastOnJoin({ joined }: { joined?: string }) {
 }
 
 async function RecentReviews() {
-  const reviews: ReviewData[] = await FetchReviewData("recent");
+  const reviews: ReviewData[] = await fetchReviewData("recent");
   console.log(reviews);
 
   return (
     <>
       {reviews.map((review) => (
         <div key={review.createdAt} className="review-item-layout">
-          <ReviewItem review={review} />
+          <ReviewItem review={review} isMenuVisible={false} />
         </div>
       ))}
     </>

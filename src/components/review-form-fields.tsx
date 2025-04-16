@@ -2,13 +2,29 @@
 
 import ThumbDownIcon from "@/assets/icons/ThumbDownIcon";
 import ThumbUpIcon from "@/assets/icons/ThumbUpIcon";
+import { ReviewData } from "@/types";
 import { useState } from "react";
 
-export default function ReviewFormFields() {
-  const [selectedId, setSelectedId] = useState("");
+type ReviewFormType = Partial<ReviewData>;
+
+export default function ReviewFormFields({
+  review,
+}: {
+  review?: ReviewFormType;
+}) {
+  const [selectedId, setSelectedId] = useState(() => {
+    if (review?.recommend === true) return "like";
+    if (review?.recommend === false) return "dislike";
+    return "";
+  });
+  const [text, setText] = useState(review?.review ?? "");
 
   const handleChangeRadio = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedId(e.target.id);
+  };
+
+  const handleChangeText = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setText(e.target.value);
   };
 
   return (
@@ -35,7 +51,7 @@ export default function ReviewFormFields() {
               checked={selectedId === "like" ? true : false}
             />
           </div>
-          <div className="">
+          <div>
             <label
               htmlFor="dislike"
               className="cursor-pointer text-center [&_span]:block"
@@ -67,6 +83,8 @@ export default function ReviewFormFields() {
           maxLength={300}
           placeholder="이 공연에서 좋았던 점이나 아쉬웠던 점을 자유롭게 적어주세요. (예: 배우들의 연기가 어땠나요? 무대 연출이 흥미로웠나요?)"
           className="w-full min-h-50 p-[10px] resize-none border border-zinc-400 rounded-[8px] focus:outline-0 focus:border-primary-400"
+          value={text}
+          onChange={handleChangeText}
         ></textarea>
       </div>
     </>

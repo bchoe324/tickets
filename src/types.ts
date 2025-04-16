@@ -11,21 +11,24 @@ export interface TicketData {
   id: string;
 }
 
-export interface ReviewData extends ShowCard {
-  show: ShowCard;
+export interface ReviewData extends Show {
+  show: Show;
   uid: string;
   createdAt: number;
   recommend: boolean | null;
   review: string;
 }
 
-export interface ShowCard {
+export interface Show {
   id: string;
   title: string;
   poster: string;
+  startDate: string;
+  endDate: string;
+  theater: string;
 }
 
-export interface Show {
+export interface RawShow {
   mt20id: string;
   poster: string;
   prfnm: string;
