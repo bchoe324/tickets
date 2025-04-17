@@ -6,25 +6,12 @@ import { redirect } from "next/navigation";
 export default async function createReviewAction(formData: FormData) {
   const accessToken = await getAccessToken();
 
-  const showId = formData.get("showId");
-  const title = formData.get("title");
-  const poster = formData.get("poster");
-  const startDate = formData.get("startDate");
-  const endDate = formData.get("endDate");
-  const theater = formData.get("theater");
+  const rawShow = formData.get("show");
+  const show = typeof rawShow === "string" ? JSON.parse(rawShow) : null;
+  if (!show) return;
+
   const recommend = Number(formData.get("recommend"));
   const review = formData.get("review");
-
-  console.log(
-    showId,
-    title,
-    poster,
-    recommend,
-    review,
-    startDate,
-    endDate,
-    theater
-  );
 
   try {
     const response = await fetch(
@@ -36,14 +23,7 @@ export default async function createReviewAction(formData: FormData) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          show: {
-            id: showId,
-            title,
-            poster,
-            startDate,
-            endDate,
-            theater,
-          },
+          show,
           recommend,
           review,
         }),

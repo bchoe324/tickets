@@ -10,6 +10,8 @@ import ActionMenu from "./action-menu";
 import EditIcon from "@/assets/icons/EditIcon";
 import DeleteIcon from "@/assets/icons/DeleteIcon";
 import { useRouter } from "next/navigation";
+import Swal from "sweetalert2";
+import deleteReviewAction from "@/actions/delete-review-action";
 
 export default function ReviewItem({
   review,
@@ -20,6 +22,17 @@ export default function ReviewItem({
 }) {
   const now = new Date().getTime();
   const router = useRouter();
+
+  const handleClickDelete = async () => {
+    const result = await Swal.fire({
+      title: "정말 삭제할까요?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "삭제",
+      cancelButtonText: "취소",
+    });
+    if (result.isConfirmed) deleteReviewAction(review.id);
+  };
 
   return (
     <>
@@ -41,7 +54,7 @@ export default function ReviewItem({
                   <DeleteIcon fill="#FF5252" /> 리뷰 삭제하기
                 </span>
               ),
-              onClick: () => {},
+              onClick: () => handleClickDelete(),
             },
           ]}
         />

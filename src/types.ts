@@ -11,9 +11,9 @@ export interface TicketData {
   id: string;
 }
 
-export interface ReviewData extends Show {
+export interface ReviewData {
+  id: string;
   show: Show;
-  uid: string;
   createdAt: number;
   recommend: boolean | null;
   review: string;

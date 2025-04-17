@@ -4,6 +4,7 @@ import DetailHeader from "@/components/detail-header";
 import Image from "next/image";
 import ReviewFormFields from "@/components/review-form-fields";
 import { ReviewData } from "@/types";
+import updateReviewAction from "@/actions/update-review-action";
 
 export default async function Page({
   params,
@@ -27,14 +28,25 @@ export default async function Page({
       throw new Error(`${response.status}: ${response.statusText}`);
     }
     review = await response.json();
-    console.log(review);
   } catch (error) {
     console.error(error);
   }
 
+  const reviewJson =
+    review?.recommend && review.review
+      ? JSON.stringify({ recommend: review.recommend, review: review.review })
+      : "";
+
   return (
     <>
-      <DetailHeader centerChild={"관람 후기 수정"} />
+      <DetailHeader
+        centerChild={"관람 후기 수정"}
+        rightChild={
+          <button type="submit" form="edit-revivew">
+            저장
+          </button>
+        }
+      />
       <main>
         {review ? (
           <div className="p-layout mt-layout">
@@ -55,7 +67,19 @@ export default async function Page({
                 </div>
               </div>
             </div>
-            <form id="review" action="" className="review-form-layout">
+            <form
+              id="edit-revivew"
+              action={updateReviewAction}
+              className="review-form-layout"
+            >
+              <input type="text" name="reviewId" value={id} hidden readOnly />
+              <input
+                type="text"
+                name="beforeData"
+                value={reviewJson}
+                hidden
+                readOnly
+              />
               <ReviewFormFields review={review} />
             </form>
           </div>

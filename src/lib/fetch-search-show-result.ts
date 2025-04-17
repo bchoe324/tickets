@@ -1,3 +1,5 @@
+"use server";
+
 import { format } from "date-fns";
 import { XMLParser } from "fast-xml-parser";
 

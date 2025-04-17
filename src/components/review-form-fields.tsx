@@ -49,6 +49,7 @@ export default function ReviewFormFields({
               value={1}
               onChange={handleChangeRadio}
               checked={selectedId === "like" ? true : false}
+              required
             />
           </div>
           <div>
@@ -72,6 +73,7 @@ export default function ReviewFormFields({
               value={0}
               onChange={handleChangeRadio}
               checked={selectedId === "dislike" ? true : false}
+              required
             />
           </div>
         </div>
@@ -85,6 +87,7 @@ export default function ReviewFormFields({
           className="w-full min-h-50 p-[10px] resize-none border border-zinc-400 rounded-[8px] focus:outline-0 focus:border-primary-400"
           value={text}
           onChange={handleChangeText}
+          required
         ></textarea>
       </div>
     </>
