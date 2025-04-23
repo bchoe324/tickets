@@ -3,15 +3,19 @@
 import { ReviewData } from "@/types";
 import ThumbUpIcon from "@/assets/icons/ThumbUpIcon";
 import ThumbDownIcon from "@/assets/icons/ThumbDownIcon";
-import ToggleText from "@/components/toggle-text";
+import ToggleText from "@/components/common/toggle-text";
 import getRelativeTime from "@/utils/get-relative-time";
 import Image from "next/image";
-import ActionMenu from "./action-menu";
+import ActionMenu from "../common/action-menu";
 import EditIcon from "@/assets/icons/EditIcon";
 import DeleteIcon from "@/assets/icons/DeleteIcon";
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
 import deleteReviewAction from "@/actions/delete-review-action";
+import { useTransition } from "react";
+import { toast } from "sonner";
+import Loading from "../common/loading";
+import { swalConfirmOption } from "@/constants/ui";
 
 export default function ReviewItem({
   review,
@@ -22,20 +26,25 @@ export default function ReviewItem({
 }) {
   const now = new Date().getTime();
   const router = useRouter();
+  const [isPending, startTransition] = useTransition();
 
   const handleClickDelete = async () => {
-    const result = await Swal.fire({
-      title: "정말 삭제할까요?",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonText: "삭제",
-      cancelButtonText: "취소",
+    const result = await Swal.fire(swalConfirmOption);
+    if (!result.isConfirmed) return;
+    startTransition(async () => {
+      try {
+        await deleteReviewAction(review.id);
+        toast.success("삭제가 완료되었습니다.");
+        router.push("/review/my-review");
+      } catch (error) {
+        console.error(error);
+      }
     });
-    if (result.isConfirmed) deleteReviewAction(review.id);
   };
 
   return (
     <>
+      {isPending ? <Loading /> : null}
       {isMenuVisible ? (
         <ActionMenu
           items={[

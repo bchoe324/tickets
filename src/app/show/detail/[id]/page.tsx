@@ -1,5 +1,5 @@
 import { XMLParser } from "fast-xml-parser";
-import DetailHeader from "@/components/detail-header";
+import DetailHeader from "@/components/common/detail-header";
 import Image from "next/image";
 
 export default async function Page({

@@ -1,4 +1,4 @@
-import NavList from "@/components/nav-list";
+import NavList from "@/components/common/nav-list";
 import { ReactNode } from "react";
 import { Toaster } from "sonner";
 

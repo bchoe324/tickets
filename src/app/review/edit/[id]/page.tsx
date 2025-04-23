@@ -1,8 +1,8 @@
 import { getAccessToken } from "@/utils/get-access-token";
 
-import DetailHeader from "@/components/detail-header";
+import DetailHeader from "@/components/common/detail-header";
 import Image from "next/image";
-import ReviewFormFields from "@/components/review-form-fields";
+import ReviewFormFields from "@/components/review/review-form-fields";
 import { ReviewData } from "@/types";
 import updateReviewAction from "@/actions/update-review-action";
 
@@ -31,11 +31,6 @@ export default async function Page({
   } catch (error) {
     console.error(error);
   }
-
-  const reviewJson =
-    review?.recommend && review.review
-      ? JSON.stringify({ recommend: review.recommend, review: review.review })
-      : "";
 
   return (
     <>
@@ -73,13 +68,6 @@ export default async function Page({
               className="review-form-layout"
             >
               <input type="text" name="reviewId" value={id} hidden readOnly />
-              <input
-                type="text"
-                name="beforeData"
-                value={reviewJson}
-                hidden
-                readOnly
-              />
               <ReviewFormFields review={review} />
             </form>
           </div>

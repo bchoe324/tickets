@@ -1,7 +1,7 @@
-import DetailHeader from "@/components/detail-header";
-import FloatingButton from "@/components/floating-button";
-import NoContent from "@/components/no-contents";
-import ReviewItem from "@/components/review-item";
+import DetailHeader from "@/components/common/detail-header";
+import FloatingButton from "@/components/review/floating-button";
+import NoContent from "@/components/common/no-contents";
+import ReviewItem from "@/components/review/review-item";
 import fetchReviewData from "@/lib/fetch-review-data";
 import { ReviewData } from "@/types";
 import Link from "next/link";

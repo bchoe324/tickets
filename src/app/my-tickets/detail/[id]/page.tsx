@@ -1,11 +1,11 @@
-import DetailHeader from "@/components/detail-header";
+import DetailHeader from "@/components/common/detail-header";
 import { getAccessToken } from "@/utils/get-access-token";
 import { format } from "date-fns";
 import Image from "next/image";
-import ActionMenu from "@/components/action-menu";
+import ActionMenu from "@/components/common/action-menu";
 import EditIcon from "@/assets/icons/EditIcon";
-import DeleteIcon from "@/assets/icons/DeleteIcon";
 import Link from "next/link";
+import DeleteButton from "@/components/ticket/delete-button";
 
 async function TicketDetail({ ticketId }: { ticketId: string }) {
   const token = await getAccessToken();
@@ -26,7 +26,7 @@ async function TicketDetail({ ticketId }: { ticketId: string }) {
     <div className="ticket-form-layout">
       <div className="row image">
         <Image
-          src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${ticketData.imageUrl}`}
+          src={`${process.env.NEXT_PUBLIC_STORAGE_URL}/tickets-images/${ticketData.imageUrl}`}
           width={600}
           height={1200}
           alt={`${ticketData.title} 대표 이미지`}
@@ -86,16 +86,12 @@ export default async function Page({
                 element: (
                   <Link href={`/my-tickets/edit/${id}`}>
                     <EditIcon fill="#333" />
-                    기록 수정하기
+                    일정 수정하기
                   </Link>
                 ),
               },
               {
-                element: (
-                  <span className="delete_button">
-                    <DeleteIcon fill="#FF5252" /> 리뷰 삭제하기
-                  </span>
-                ),
+                element: <DeleteButton ticketId={id} />,
               },
             ]}
           />

@@ -178,6 +178,31 @@ main {
 }
 /* Date Picker Custom Style */
 
+/* Swal2 Custom Style */
+.swal-custom {
+  .popup-custom {
+    max-width: 400px;
+  }
+  .icon-custom {
+    width: 2.4em;
+    height: 2.4em;
+    > div {
+      font-size: calc(2.4em * 0.75);
+    }
+  }
+  .title-custom {
+    font-size: 20px;
+    color: var(--color-text);
+    padding-top: 0.4em;
+  }
+  .actions-custom > button {
+    font-size: 16px;
+    padding: 0.625em 2.6em;
+    border-radius: 0.35em;
+  }
+}
+/* Swal2 Custom Style */
+
 @utility width-bounded {
   @apply w-full max-w-width-max min-w-width-min;
 }

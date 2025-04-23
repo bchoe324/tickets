@@ -1,4 +1,4 @@
-import Calendar from "@/components/calendar";
+import Calendar from "@/components/ticket/calendar";
 import { getAccessToken } from "@/utils/get-access-token";
 import { getYear, getMonth } from "date-fns";
 

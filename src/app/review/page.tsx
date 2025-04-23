@@ -1,8 +1,8 @@
 import fetchReviewData from "@/lib/fetch-review-data";
-import ReviewItem from "@/components/review-item";
+import ReviewItem from "@/components/review/review-item";
 import { ReviewData } from "@/types";
-import DetailHeader from "@/components/detail-header";
-import FloatingButton from "@/components/floating-button";
+import DetailHeader from "@/components/common/detail-header";
+import FloatingButton from "@/components/review/floating-button";
 import Link from "next/link";
 import Image from "next/image";
 import plus from "@/assets/icons/plus.svg";

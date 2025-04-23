@@ -3,30 +3,12 @@
 import { getAccessToken } from "@/utils/get-access-token";
 import { redirect } from "next/navigation";
 
-type updateReviewType = {
-  recommend: number;
-  review: string;
-};
-
 export default async function updateReviewAction(formData: FormData) {
   const accessToken = await getAccessToken();
 
   const reviewId = formData.get("reviewId");
-  const rawBefore = formData.get("beforeData");
-  const before: updateReviewType =
-    typeof rawBefore === "string" ? JSON.parse(rawBefore) : null;
-  if (!before) return;
-
-  const rawRecommend = formData.get("recommend");
-  const recommend = rawRecommend !== null ? Number(rawRecommend) : null;
-  const review = formData.get("review") as string;
-
-  const newData: Partial<updateReviewType> = {};
-
-  if (recommend !== null && before.recommend !== recommend) {
-    newData.recommend = recommend;
-  }
-  if (before.review !== review) newData.review = review;
+  const recommend = Number(formData.get("recommend"));
+  const review = formData.get("review");
 
   try {
     const response = await fetch(
@@ -38,7 +20,8 @@ export default async function updateReviewAction(formData: FormData) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          ...newData,
+          recommend,
+          review,
         }),
       }
     );

@@ -1,11 +1,11 @@
 import fetchRankData from "@/lib/fetch-rank-data";
-import RankSlide from "@/components/rank-slide";
+import RankSlide from "@/components/show/rank-slide";
 import Link from "next/link";
 import NextIcon from "@/assets/icons/NextIcon";
 import { toast } from "sonner";
 import fetchReviewData from "@/lib/fetch-review-data";
 import { ReviewData } from "@/types";
-import ReviewItem from "@/components/review-item";
+import ReviewItem from "@/components/review/review-item";
 
 function ToastOnJoin({ joined }: { joined?: string }) {
   "use client";

@@ -1,6 +1,6 @@
 import createTicketAction from "@/actions/create-ticket-action";
-import DetailHeader from "@/components/detail-header";
-import TicketFormFields from "@/components/ticket-form-fields";
+import DetailHeader from "@/components/common/detail-header";
+import TicketFormFields from "@/components/ticket/ticket-form-fields";
 
 export default async function Page() {
   return (

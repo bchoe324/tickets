@@ -1,5 +1,5 @@
 import fetchRankData from "@/lib/fetch-rank-data";
-import DetailHeader from "@/components/detail-header";
+import DetailHeader from "@/components/common/detail-header";
 import Image from "next/image";
 import { format, subDays } from "date-fns";
 import Link from "next/link";

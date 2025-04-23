@@ -2,12 +2,12 @@
 
 import { getAccessToken } from "@/utils/get-access-token";
 
-export default async function deleteReviewAction(reviewId: string) {
+export default async function deleteTicketAction(ticketId: string) {
   const accessToken = await getAccessToken();
 
   try {
-    const response: Response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_SERVER_URL}/review/${reviewId}`,
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_SERVER_URL}/ticket/${ticketId}`,
       {
         method: "DELETE",
         headers: {
@@ -20,7 +20,7 @@ export default async function deleteReviewAction(reviewId: string) {
     }
     console.log(response.status);
   } catch (error) {
-    console.error("리뷰 삭제 실패:", error);
-    throw new Error(`${error}. 리뷰를 삭제 실패`);
+    console.error("티켓 삭제 실패:", error);
+    throw new Error(`${error}. 티켓를 삭제 실패`);
   }
 }

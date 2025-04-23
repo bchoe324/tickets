@@ -26,7 +26,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
-import BottomSheet from "./bottom-sheet";
+import BottomSheet from "../common/bottom-sheet";
 
 const DaysOfWeek = ["일", "월", "화", "수", "목", "금", "토"];
 
@@ -136,7 +136,7 @@ export default function Calendar({
                     ? item.dailyTickets.map((ticket) => (
                         <div key={ticket.id}>
                           <Image
-                            src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${ticket.imageUrl}`}
+                            src={`${process.env.NEXT_PUBLIC_STORAGE_URL}/tickets-images/${ticket.imageUrl}`}
                             width={100}
                             height={200}
                             alt={`${ticket.title}의 대표 이미지`}
@@ -166,7 +166,7 @@ export default function Calendar({
                     <div className="flex-fixed w-30">
                       <Image
                         className="w-full h-full object-cover"
-                        src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${ticket.imageUrl}`}
+                        src={`${process.env.NEXT_PUBLIC_STORAGE_URL}/tickets-images/${ticket.imageUrl}`}
                         width={100}
                         height={200}
                         alt={`${ticket.title} 대표 이미지`}

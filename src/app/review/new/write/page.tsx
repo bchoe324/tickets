@@ -1,6 +1,6 @@
 import createReviewAction from "@/actions/create-review-action";
-import DetailHeader from "@/components/detail-header";
-import ReviewFormFields from "@/components/review-form-fields";
+import DetailHeader from "@/components/common/detail-header";
+import ReviewFormFields from "@/components/review/review-form-fields";
 import { XMLParser } from "fast-xml-parser";
 import Image from "next/image";
 

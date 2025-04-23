@@ -5,11 +5,23 @@ export interface TicketData {
   cast: string;
   theater: string;
   seat: string;
-  price: string;
+  price: number;
   site: string;
   review: string;
   id: string;
 }
+
+export type TicketFormType = {
+  title: string;
+  file: File | null;
+  price: number;
+  date: number;
+  cast: string;
+  theater: string;
+  seat: string;
+  site: string;
+  review: string;
+};
 
 export interface ReviewData {
   id: string;

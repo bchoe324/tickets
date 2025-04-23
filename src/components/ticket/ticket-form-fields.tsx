@@ -4,32 +4,89 @@ import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Image from "next/image";
+import { TicketData } from "@/types";
 
-export default function TicketFormFields() {
-  const [rawPrice, setRawPrice] = useState(0);
-  const [formattedPrice, setFormattedPrice] = useState("");
-  const [preview, setPreview] = useState("");
-  const [date, setDate] = useState(new Date());
+function addCommaToPrice(price: number | string) {
+  return price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+}
 
-  const onChangePrice = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const numeric = e.target.value.replace(/[^0-9]/g, "");
-    const formatted = numeric.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-    setFormattedPrice(formatted);
-    setRawPrice(Number(numeric));
-    return <></>;
+type TicketFormType = {
+  title: string;
+  file: File | null;
+  price: number;
+  date: number;
+  cast: string;
+  theater: string;
+  seat: string;
+  site: string;
+  review: string;
+};
+
+const defaultFormData: TicketFormType = {
+  title: "",
+  file: null,
+  price: 0,
+  date: new Date().getTime(),
+  theater: "",
+  cast: "",
+  seat: "",
+  site: "",
+  review: "",
+};
+
+export default function TicketFormFields({ ticket }: { ticket?: TicketData }) {
+  const [form, setForm] = useState(ticket ?? defaultFormData);
+
+  const [formattedPrice, setFormattedPrice] = useState(
+    ticket?.price ? addCommaToPrice(ticket.price) : ""
+  );
+  const [preview, setPreview] = useState(
+    ticket?.imageUrl
+      ? `${process.env.NEXT_PUBLIC_STORAGE_URL}/tickets-images/${ticket.imageUrl}`
+      : ""
+  );
+
+  const handleTextInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setForm((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
   };
-  const onChangeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+
+  const handleReview = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setForm((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const handlePrice = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const numeric = e.target.value.replace(/[^0-9]/g, "");
+    const formatted = addCommaToPrice(numeric);
+    setFormattedPrice(formatted);
+    setForm((prev) => ({
+      ...prev,
+      price: Number(numeric),
+    }));
+  };
+
+  const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     // 파일 개수 & 파일 용량 1MB 이하
     if (files && files?.length === 1) {
       if (files[0].size > 1024 ** 2) return;
       // 미리보기
       setPreview(URL.createObjectURL(files[0]));
+      setForm((prev) => ({
+        ...prev,
+        file: files[0],
+      }));
     }
   };
 
   return (
     <div className="ticket-form-layout">
+      <input type="hidden" name="ticketId" value={ticket?.id} readOnly />
       <div className="row image">
         <label htmlFor="image">
           <div className="preview">
@@ -58,7 +115,7 @@ export default function TicketFormFields() {
           type="file"
           name="image"
           id="image"
-          onChange={onChangeFile}
+          onChange={handleFile}
         />
       </div>
       <div className="row title">
@@ -68,6 +125,8 @@ export default function TicketFormFields() {
           name="title"
           id="title"
           placeholder="제목을 입력하세요"
+          value={form.title}
+          onChange={handleTextInput}
         />
       </div>
       <div className="row">
@@ -75,8 +134,10 @@ export default function TicketFormFields() {
         <div className="date_picker">
           <DatePicker
             showIcon
-            selected={date}
-            onChange={(date: Date | null) => date && setDate(date)}
+            selected={new Date(form.date)}
+            onChange={(date: Date | null) =>
+              date && setForm((prev) => ({ ...prev, date: date.getTime() }))
+            }
             showTimeSelect
             timeIntervals={30}
             dateFormat="yyyy년 MM월 dd일 HH시 mm분"
@@ -86,7 +147,7 @@ export default function TicketFormFields() {
             hidden
             readOnly
             name="date"
-            value={date.toISOString()}
+            value={new Date(form.date).toISOString()}
           />
         </div>
       </div>
@@ -97,6 +158,8 @@ export default function TicketFormFields() {
           name="cast"
           id="cast"
           placeholder="캐스트를 입력하세요"
+          value={form.cast}
+          onChange={handleTextInput}
         />
       </div>
       <div className="row">
@@ -106,6 +169,8 @@ export default function TicketFormFields() {
           name="theater"
           id="theater"
           placeholder="공연장을 입력하세요"
+          value={form.theater}
+          onChange={handleTextInput}
         />
       </div>
       <div className="row">
@@ -115,6 +180,8 @@ export default function TicketFormFields() {
           name="seat"
           id="seat"
           placeholder="좌석을 입력하세요"
+          value={form.seat}
+          onChange={handleTextInput}
         />
       </div>
       <div className="row">
@@ -125,10 +192,10 @@ export default function TicketFormFields() {
           id="price"
           inputMode="numeric"
           placeholder="금액을 입력하세요"
-          onChange={onChangePrice}
+          onChange={handlePrice}
           value={formattedPrice}
         />
-        <input hidden readOnly name="price" type="number" value={rawPrice} />
+        <input hidden readOnly name="price" type="number" value={form.price} />
       </div>
       <div className="row">
         <label htmlFor="site">예매처</label>
@@ -137,6 +204,8 @@ export default function TicketFormFields() {
           name="site"
           id="site"
           placeholder="예매처를 입력하세요"
+          value={form.site}
+          onChange={handleTextInput}
         />
       </div>
       <div className="row review">
@@ -146,6 +215,8 @@ export default function TicketFormFields() {
           id="review"
           maxLength={300}
           placeholder="리뷰를 입력하세요"
+          value={form.review}
+          onChange={handleReview}
         />
       </div>
     </div>

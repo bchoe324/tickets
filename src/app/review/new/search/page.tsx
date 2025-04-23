@@ -1,13 +1,13 @@
 import InfoIcon from "@/assets/icons/InfoIcon";
-import DetailHeader from "@/components/detail-header";
-import ShowSearchbar from "@/components/show-searchbar";
+import DetailHeader from "@/components/common/detail-header";
+import ShowSearchbar from "@/components/show/show-searchbar";
 import fetchSearchShowResult from "@/lib/fetch-search-show-result";
-import { Show } from "@/types";
+import { RawShow } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
 
 async function SearchResult({ q }: { q: string }) {
-  const result: Show[] = await fetchSearchShowResult(q);
+  const result: RawShow[] = await fetchSearchShowResult(q);
 
   return (
     <div className="px-layout">
