@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import { Toaster } from "sonner";
 
 const fontPretendard = localFont({
   src: [{ path: "../../public/PretendardVariable.woff2", style: "normal" }],
@@ -23,6 +24,7 @@ export default async function RootLayout({
       </head>
       <body className={fontPretendard.className}>
         <div id="root">{children}</div>
+        <Toaster position="top-center" richColors />
       </body>
     </html>
   );

@@ -1,9 +1,10 @@
 import ProfileIcon from "@/assets/icons/ProfileIcon";
-import { cookies } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
 import { format } from "date-fns";
 import NextIcon from "@/assets/icons/NextIcon";
+import { getAccessToken } from "@/utils/get-access-token";
+import UserActionButtons from "@/components/mypage/user-action-buttons";
 
 const subPages = [
   { title: "내 관람 후기", href: "review/my-review/" },
@@ -11,27 +12,31 @@ const subPages = [
 ];
 
 export default async function Page() {
-  const cookieStore = await cookies();
-  const accessToken = cookieStore.get("access_token")?.value;
+  const accessToken = await getAccessToken();
+  let userData;
 
   if (!accessToken) {
     return <></>;
   }
-
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_SERVER_URL}/auth/user`,
-    {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        "Content-Type": "application/json",
-      },
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_SERVER_URL}/auth/user`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+    if (!response.ok) {
+      throw new Error("Failed to fetch user data");
     }
-  );
-  if (!response.ok) {
-    throw new Error("Failed to fetch user data");
+    userData = await response.json();
+  } catch (error) {
+    console.error(error);
+    return <div>유저 정보를 불러올 수 없습니다.</div>;
   }
-  const userData = await response.json();
+
   return (
     <>
       <section className="flex-start py-[40px] px-layout border-b border-zinc-300">
@@ -77,11 +82,7 @@ export default async function Page() {
             </li>
           ))}
         </ul>
-        <div className="py-[10px] px-layout mt-[10px] flex-start *:text-zinc-400">
-          <button>로그아웃</button>
-          <span className="w-px h-[16px] bg-zinc-400 mx-[10px]"></span>
-          <button>회원 탈퇴</button>
-        </div>
+        <UserActionButtons />
       </section>
     </>
   );

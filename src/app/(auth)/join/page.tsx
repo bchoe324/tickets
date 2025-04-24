@@ -38,7 +38,7 @@ export default function Page() {
         </div>
         <button type="submit">이메일로 회원가입</button>
       </form>
-      <div>
+      <div className="link">
         <Link href="/login">로그인</Link>
       </div>
     </>

@@ -258,15 +258,24 @@ main {
   }
   form {
     @apply flex flex-col w-full;
+    > div:nth-child(n + 2) {
+      @apply mt-layout;
+    }
     label {
       @apply block font-medium mb-[5px];
     }
     input {
       @apply p-[10px] w-full border border-zinc-400 rounded-[8px];
     }
+    .error-message {
+      @apply flex-start text-red-400 mt-[5px] [&_svg]:w-[14px] [&_svg]:mr-[3px];
+    }
     button {
       @apply text-white bg-primary-400 p-[14px] mt-[40px] rounded-[8px];
     }
+  }
+  .link {
+    @apply mt-[10px] text-right;
   }
 }
 

@@ -27,6 +27,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 import BottomSheet from "../common/bottom-sheet";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const DaysOfWeek = ["일", "월", "화", "수", "목", "금", "토"];
 
@@ -97,7 +98,6 @@ export default function Calendar({
       return { dateKey, cellDate, dailyTickets, today };
     }
   );
-  console.log(calendarDays);
 
   return (
     <>

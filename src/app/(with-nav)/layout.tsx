@@ -1,6 +1,5 @@
 import NavList from "@/components/common/nav-list";
 import { ReactNode } from "react";
-import { Toaster } from "sonner";
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (
@@ -10,7 +9,6 @@ export default function Layout({ children }: { children: ReactNode }) {
       </header>
       <NavList />
       <main>{children}</main>
-      <Toaster position="top-center" />
     </>
   );
 }
