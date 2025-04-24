@@ -1,8 +1,8 @@
 "use client";
 
 import loginAction from "@/actions/login-action";
+import loginTestAction from "@/actions/login-test-action";
 import Link from "next/link";
-
 export default function Page() {
   return (
     <>
@@ -30,6 +30,12 @@ export default function Page() {
         </div>
         <button type="submit">이메일로 로그인</button>
       </form>
+      <button
+        className="w-full p-[14px] mt-layout text-white bg-zinc-400 rounded-[8px]"
+        onClick={loginTestAction}
+      >
+        테스트 계정으로 로그인
+      </button>
       <div>
         <Link href="/join">회원가입</Link>
       </div>
