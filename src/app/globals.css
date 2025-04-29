@@ -230,19 +230,20 @@ main {
   }
 }
 
-@utility show-list-poster {
-  @apply relative flex-[0_0_auto] w-30 h-full aspect-3/4 rounded-[4px] shadow-[0px_2px_8px_0px_rgba(99,_99,_99,_0.2)] overflow-hidden;
-  img {
-    @apply w-full h-full object-cover;
+@utility show-list-layout {
+  @apply flex p-[25px] border-b border-zinc-300 cursor-pointer;
+  .poster {
+    @apply relative flex-[0_0_auto] w-30 h-full aspect-3/4 rounded-[4px] shadow-[0px_2px_8px_0px_rgba(99,_99,_99,_0.2)] overflow-hidden;
+    img {
+      @apply w-full h-full object-cover;
+    }
   }
-}
-
-@utility show-list-info {
-  @apply flex-auto ml-layout *:mt-[5px];
-}
-
-@utility show-list-info-title {
-  @apply font-semibold mt-0;
+  .info {
+    @apply flex-auto ml-layout *:mt-[5px];
+    .title {
+      @apply font-semibold mt-0;
+    }
+  }
 }
 
 @utility auth-layout {

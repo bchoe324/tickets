@@ -28,6 +28,7 @@ import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 import BottomSheet from "../common/bottom-sheet";
 import "react-loading-skeleton/dist/skeleton.css";
+import Skeleton from "react-loading-skeleton";
 
 const DaysOfWeek = ["일", "월", "화", "수", "목", "금", "토"];
 
@@ -47,6 +48,7 @@ export default function Calendar({
   const month = getMonth(pivotDate);
   const { isOpen, openModal, closeModal } = useModal();
   const [selectedTicket, setSelectedTicket] = useState<TicketData[]>([]);
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   const handleMonthChange = (delta: number) => {
     const newDate =
@@ -135,11 +137,20 @@ export default function Calendar({
                   {item.dailyTickets.length > 0
                     ? item.dailyTickets.map((ticket) => (
                         <div key={ticket.id}>
+                          {!imageLoaded && (
+                            <Skeleton
+                              width={80}
+                              height={80}
+                              borderRadius={0}
+                              containerClassName="absolute inset-0 flex-center"
+                            />
+                          )}
                           <Image
                             src={`${process.env.NEXT_PUBLIC_STORAGE_URL}/tickets-images/${ticket.imageUrl}`}
                             width={100}
                             height={200}
                             alt={`${ticket.title}의 대표 이미지`}
+                            onLoad={() => setImageLoaded(true)}
                           />
                         </div>
                       ))

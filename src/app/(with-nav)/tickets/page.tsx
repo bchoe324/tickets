@@ -13,7 +13,6 @@ export default async function Page({
   const year = Number(searchYear) || getYear(now);
   const month = Number(searchMonth) || getMonth(now);
   const token = await getAccessToken();
-
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_SERVER_URL}/ticket/monthly?year=${year}&month=${month}`,
     {

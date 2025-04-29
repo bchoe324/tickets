@@ -6,23 +6,34 @@ import FloatingButton from "@/components/review/floating-button";
 import Link from "next/link";
 import Image from "next/image";
 import plus from "@/assets/icons/plus.svg";
+import { Suspense } from "react";
+import ReviewItemSkeleton from "@/components/skeleton/review-item-skeleton";
 
-export default async function Page() {
+async function ReviewList() {
   const reviews: ReviewData[] = await fetchReviewData();
+  return (
+    <>
+      {reviews.length > 0 ? (
+        reviews.map((review) => (
+          <div className="review-item-layout" key={review.createdAt}>
+            <ReviewItem review={review} isMenuVisible={false} />
+          </div>
+        ))
+      ) : (
+        <p>리뷰 데이터를 불러올 수 없습니다.</p>
+      )}
+    </>
+  );
+}
 
+export default function Page() {
   return (
     <>
       <DetailHeader centerChild={"공연 리뷰"} />
       <main>
-        {reviews.length > 0 ? (
-          reviews.map((review) => (
-            <div className="review-item-layout" key={review.createdAt}>
-              <ReviewItem review={review} isMenuVisible={false} />
-            </div>
-          ))
-        ) : (
-          <p>리뷰 데이터를 불러올 수 없습니다.</p>
-        )}
+        <Suspense fallback={<ReviewItemSkeleton count={5} />}>
+          <ReviewList />
+        </Suspense>
       </main>
       <aside>
         <FloatingButton>

@@ -6,6 +6,9 @@ import { toast } from "sonner";
 import fetchReviewData from "@/lib/fetch-review-data";
 import { ReviewData } from "@/types";
 import ReviewItem from "@/components/review/review-item";
+import { Suspense } from "react";
+import ReviewItemSkeleton from "@/components/skeleton/review-item-skeleton";
+import RankSlideSkeleton from "@/components/skeleton/rank-slide-skeleton";
 
 function ToastOnJoin({ joined }: { joined?: string }) {
   "use client";
@@ -32,15 +35,19 @@ async function RecentReviews() {
   );
 }
 
+async function Rank() {
+  const rankData = await fetchRankData();
+  if (!rankData) return;
+  const rankArray = rankData?.slice(0, 9);
+  return <RankSlide rankArray={rankArray} />;
+}
+
 export default async function Home({
   searchParams,
 }: {
   searchParams: Promise<{ joined?: string }>;
 }) {
   const joined = await searchParams;
-  const rankData = await fetchRankData();
-  if (!rankData) return;
-  const rankArray = rankData?.slice(0, 9);
 
   return (
     <>
@@ -56,7 +63,9 @@ export default async function Home({
           </Link>
         </div>
         <div className="px-layout">
-          <RankSlide rankArray={rankArray} />
+          <Suspense fallback={<RankSlideSkeleton />}>
+            <Rank />
+          </Suspense>
         </div>
       </section>
       <section className="home-section">
@@ -69,7 +78,9 @@ export default async function Home({
             </span>
           </Link>
         </div>
-        <RecentReviews />
+        <Suspense fallback={<ReviewItemSkeleton count={3} />}>
+          <RecentReviews />
+        </Suspense>
       </section>
     </>
   );
