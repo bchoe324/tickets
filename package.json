@@ -9,12 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@supabase/auth-helpers-nextjs": "^0.10.0",
-    "@supabase/ssr": "^0.6.1",
-    "@supabase/supabase-js": "^2.49.4",
     "date-fns": "^4.1.0",
     "fast-xml-parser": "^5.0.9",
-    "jose": "^6.0.10",
     "next": "15.2.4",
     "react": "^19.0.0",
     "react-datepicker": "^8.3.0",
