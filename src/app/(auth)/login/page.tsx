@@ -67,6 +67,7 @@ export default function Page() {
     const result = await loginTestAction();
     if (result.ok) {
       router.push("/");
+      router.refresh();
     } else {
       toast.error("테스트 로그인에 실패했습니다."); // Provide a default error message
     }
