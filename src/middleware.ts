@@ -1,13 +1,15 @@
 import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
+import { cookies } from "next/headers";
 
 const AUTH_PAGES = ["/login", "/join"];
 
 export async function middleware(req: NextRequest) {
+  const cookieStore = (await cookies()).get("access_token");
   const accessToken = req.cookies.get("access_token")?.value;
 
   const isAuthPage = AUTH_PAGES.includes(new URL(req.url).pathname);
-  console.log("accessToken", accessToken);
+  console.log("accessToken", accessToken, cookieStore);
   console.log("isAuthPage", isAuthPage);
 
   // access token이 있음 = 로그인 상태
