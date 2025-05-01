@@ -44,6 +44,7 @@ export default function Page() {
       try {
         await loginAction(formData);
         router.push("/");
+        router.refresh();
       } catch (error) {
         const e = error as Error & { code?: string };
         let toastMessage;
