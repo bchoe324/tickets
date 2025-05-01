@@ -7,6 +7,8 @@ export async function middleware(req: NextRequest) {
   const accessToken = req.cookies.get("access_token")?.value;
 
   const isAuthPage = AUTH_PAGES.includes(new URL(req.url).pathname);
+  console.log("accessToken", accessToken);
+  console.log("isAuthPage", isAuthPage);
 
   // access token이 있음 = 로그인 상태
   if (accessToken) {
