@@ -1,5 +1,3 @@
-import { redirect } from "next/navigation";
-
 export default async function loginTestAction() {
   const headers: HeadersInit = {
     "Content-Type": "application/json",
@@ -19,6 +17,6 @@ export default async function loginTestAction() {
     throw new Error(data.message || "로그인 실패");
   } else {
     console.log("로그인 성공");
-    redirect("/");
+    return { ok: true };
   }
 }
