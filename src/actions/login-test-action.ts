@@ -1,6 +1,6 @@
-import { NextApiResponse } from "next";
+import { redirect } from "next/navigation";
 
-export default async function loginTestAction(res: NextApiResponse) {
+export default async function loginTestAction() {
   const headers: HeadersInit = {
     "Content-Type": "application/json",
   };
@@ -16,7 +16,7 @@ export default async function loginTestAction(res: NextApiResponse) {
     throw new Error(data.message || "로그인 실패");
   } else {
     console.log("로그인 성공");
-    res.redirect(302, "/");
+    redirect("/");
     // return { ok: true };
   }
 }

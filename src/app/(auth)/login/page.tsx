@@ -63,21 +63,21 @@ export default function Page() {
     });
   };
 
-  const handleTestLogin = async () => {
-    const result = await loginTestAction();
-    if (result.ok) {
-      router.push("/");
-      router.refresh();
-    } else {
-      toast.error("테스트 로그인에 실패했습니다."); // Provide a default error message
-    }
-  };
+  // const handleTestLogin = async () => {
+  //   const result = await loginTestAction();
+  //   if (result.ok) {
+  //     router.push("/");
+  //     router.refresh();
+  //   } else {
+  //     toast.error("테스트 로그인에 실패했습니다."); // Provide a default error message
+  //   }
+  // };
 
   return (
     <>
       {isPending ? <Loading /> : null}
       <h2>로그인</h2>
-      <form action={undefined} onSubmit={loginTestAction}>
+      <form action={undefined} onSubmit={handleSubmit}>
         <div>
           <label htmlFor="email">이메일</label>
           <input
@@ -116,7 +116,7 @@ export default function Page() {
       </form>
       <button
         className="w-full p-[14px] mt-[15px] text-white bg-zinc-400 rounded-[8px]"
-        onClick={handleTestLogin}
+        onClick={loginTestAction}
       >
         테스트 계정으로 로그인
       </button>
