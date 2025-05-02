@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 export default async function createTicketAction(formData: FormData) {
   const accessToken = await getAccessToken();
 
-  const response = await fetch(`api/ticket/create`, {
+  const response = await fetch(`/api/ticket/create`, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${accessToken}`,

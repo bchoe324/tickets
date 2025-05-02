@@ -14,7 +14,7 @@ export default async function createReviewAction(formData: FormData) {
   const review = formData.get("review");
 
   try {
-    const response = await fetch(`api/review/create`, {
+    const response = await fetch(`/api/review/create`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${accessToken}`,

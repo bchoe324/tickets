@@ -11,7 +11,7 @@ export default async function updateReviewAction(formData: FormData) {
   const review = formData.get("review");
 
   try {
-    const response = await fetch(`api/review/${reviewId}`, {
+    const response = await fetch(`/api/review/${reviewId}`, {
       method: "PATCH",
       headers: {
         Authorization: `Bearer ${accessToken}`,

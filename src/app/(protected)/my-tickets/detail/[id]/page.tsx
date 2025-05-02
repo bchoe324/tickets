@@ -10,7 +10,7 @@ import DeleteButton from "@/components/ticket/delete-button";
 async function TicketDetail({ ticketId }: { ticketId: string }) {
   const token = await getAccessToken();
 
-  const response = await fetch(`api/ticket/${ticketId}`, {
+  const response = await fetch(`/api/ticket/${ticketId}`, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,

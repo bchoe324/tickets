@@ -3,7 +3,7 @@ export default async function loginTestAction() {
     "Content-Type": "application/json",
   };
 
-  const response = await fetch(`api/auth/test-login`, {
+  const response = await fetch(`/api/auth/test-login`, {
     method: "POST",
     credentials: "include",
     headers: headers,

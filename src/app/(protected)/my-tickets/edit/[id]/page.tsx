@@ -11,7 +11,7 @@ export default async function Page({
   const token = await getAccessToken();
   const ticketId = (await params).id;
 
-  const response = await fetch(`api/ticket/${ticketId}`, {
+  const response = await fetch(`/api/ticket/${ticketId}`, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,

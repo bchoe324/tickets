@@ -5,7 +5,7 @@ export default async function fetchReviewData(
 ) {
   const accessToken = await getAccessToken();
 
-  const url = `api/review/${!endpoint ? "" : endpoint}`;
+  const url = `/api/review/${!endpoint ? "" : endpoint}`;
 
   try {
     const response = await fetch(url, {

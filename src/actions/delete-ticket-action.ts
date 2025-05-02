@@ -6,7 +6,7 @@ export default async function deleteTicketAction(ticketId: string) {
   const accessToken = await getAccessToken();
 
   try {
-    const response = await fetch(`api/ticket/${ticketId}`, {
+    const response = await fetch(`/api/ticket/${ticketId}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${accessToken}`,

@@ -22,7 +22,7 @@ async function ProfileCard() {
   }
   try {
     // await delay(30000);
-    const response = await fetch(`api/auth/user`, {
+    const response = await fetch(`/api/auth/user`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${accessToken}`,

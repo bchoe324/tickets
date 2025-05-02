@@ -7,7 +7,7 @@ export default async function updateTicketAction(formData: FormData) {
   const accessToken = await getAccessToken();
   const ticketId = formData.get("ticketId");
 
-  const response = await fetch(`api/ticket/${ticketId}`, {
+  const response = await fetch(`/api/ticket/${ticketId}`, {
     method: "PATCH",
     headers: {
       Authorization: `Bearer ${accessToken}`,

@@ -15,7 +15,7 @@ export default async function Page({
   const accessToken = await getAccessToken();
   let review: ReviewData | null = null;
   try {
-    const response = await fetch(`api/review/${id}`, {
+    const response = await fetch(`/api/review/${id}`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${accessToken}`,
