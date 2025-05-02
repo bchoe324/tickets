@@ -1,4 +1,6 @@
-export default async function loginTestAction() {
+import { NextApiResponse } from "next";
+
+export default async function loginTestAction(res: NextApiResponse) {
   const headers: HeadersInit = {
     "Content-Type": "application/json",
   };
@@ -14,6 +16,7 @@ export default async function loginTestAction() {
     throw new Error(data.message || "로그인 실패");
   } else {
     console.log("로그인 성공");
-    return { ok: true };
+    res.redirect(302, "/");
+    // return { ok: true };
   }
 }

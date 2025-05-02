@@ -77,7 +77,7 @@ export default function Page() {
     <>
       {isPending ? <Loading /> : null}
       <h2>로그인</h2>
-      <form action={undefined} onSubmit={handleSubmit}>
+      <form action={undefined} onSubmit={loginTestAction}>
         <div>
           <label htmlFor="email">이메일</label>
           <input
