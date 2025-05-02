@@ -11,15 +11,18 @@ export default async function joinAction(formData: FormData) {
     throw new Error("모든 필드를 입력하세요.");
   }
   try {
-    const response = await fetch(`/api/auth/join`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        email,
-        password,
-        name,
-      }),
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_SERVER_URL}/auth/join`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email,
+          password,
+          name,
+        }),
+      }
+    );
     const responseData = await response.json();
 
     if (!response.ok) {

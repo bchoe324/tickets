@@ -6,12 +6,15 @@ export default async function deleteReviewAction(reviewId: string) {
   const accessToken = await getAccessToken();
 
   try {
-    const response: Response = await fetch(`/api/review/${reviewId}`, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
+    const response: Response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_SERVER_URL}/review/${reviewId}`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
     if (!response.ok) {
       throw new Error(`${response.status}. ${response.statusText}`);
     }

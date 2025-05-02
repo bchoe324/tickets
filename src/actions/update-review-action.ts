@@ -11,17 +11,20 @@ export default async function updateReviewAction(formData: FormData) {
   const review = formData.get("review");
 
   try {
-    const response = await fetch(`/api/review/${reviewId}`, {
-      method: "PATCH",
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        recommend,
-        review,
-      }),
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_SERVER_URL}/review/${reviewId}`,
+      {
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          recommend,
+          review,
+        }),
+      }
+    );
     if (!response.ok) {
       throw new Error(`${response.status}. ${response.statusText}`);
     }

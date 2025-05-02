@@ -10,12 +10,15 @@ import DeleteButton from "@/components/ticket/delete-button";
 async function TicketDetail({ ticketId }: { ticketId: string }) {
   const token = await getAccessToken();
 
-  const response = await fetch(`/api/ticket/${ticketId}`, {
-    method: "GET",
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_SERVER_URL}/ticket/${ticketId}`,
+    {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
   if (!response) throw new Error("Failed to fetch ticket data");
   const ticketData = await response.json();
 
