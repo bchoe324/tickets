@@ -15,15 +15,12 @@ export default async function Page({
   const accessToken = await getAccessToken();
   let review: ReviewData | null = null;
   try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_SERVER_URL}/review/${id}`,
-      {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-    );
+    const response = await fetch(`api/review/${id}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
     if (!response.ok) {
       throw new Error(`${response.status}: ${response.statusText}`);
     }

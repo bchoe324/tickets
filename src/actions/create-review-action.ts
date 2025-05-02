@@ -14,21 +14,18 @@ export default async function createReviewAction(formData: FormData) {
   const review = formData.get("review");
 
   try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_SERVER_URL}/review/create`,
-      {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          show,
-          recommend,
-          review,
-        }),
-      }
-    );
+    const response = await fetch(`api/review/create`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        show,
+        recommend,
+        review,
+      }),
+    });
     if (!response.ok) {
       throw new Error(`${response.status}. ${response.statusText}`);
     }

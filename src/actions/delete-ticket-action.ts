@@ -6,15 +6,12 @@ export default async function deleteTicketAction(ticketId: string) {
   const accessToken = await getAccessToken();
 
   try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_SERVER_URL}/ticket/${ticketId}`,
-      {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-    );
+    const response = await fetch(`api/ticket/${ticketId}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
     if (!response.ok) {
       throw new Error(`${response.status}. ${response.statusText}`);
     }

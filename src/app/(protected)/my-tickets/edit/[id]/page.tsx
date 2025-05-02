@@ -11,15 +11,12 @@ export default async function Page({
   const token = await getAccessToken();
   const ticketId = (await params).id;
 
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_SERVER_URL}/ticket/${ticketId}`,
-    {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
+  const response = await fetch(`api/ticket/${ticketId}`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
   if (!response) throw new Error("Failed to fetch ticket data");
   const ticket = await response.json();
 

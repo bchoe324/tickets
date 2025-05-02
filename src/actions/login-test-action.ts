@@ -3,14 +3,11 @@ export default async function loginTestAction() {
     "Content-Type": "application/json",
   };
 
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_SERVER_URL}/auth/test-login`,
-    {
-      method: "POST",
-      credentials: "include",
-      headers: headers,
-    }
-  );
+  const response = await fetch(`api/auth/test-login`, {
+    method: "POST",
+    credentials: "include",
+    headers: headers,
+  });
   const data = await response.json();
 
   if (!response.ok) {

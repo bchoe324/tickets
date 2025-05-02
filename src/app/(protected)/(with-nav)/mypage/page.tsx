@@ -22,15 +22,12 @@ async function ProfileCard() {
   }
   try {
     // await delay(30000);
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_SERVER_URL}/auth/user`,
-      {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-    );
+    const response = await fetch(`api/auth/user`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
     if (!response.ok) {
       throw new Error("Failed to fetch user data");
     }
