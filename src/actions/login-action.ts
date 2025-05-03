@@ -10,18 +10,15 @@ export default async function loginAction(formData: FormData) {
   }
 
   try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_SERVER_URL}/auth/login`,
-      {
-        method: "POST",
-        credentials: "include",
-        headers: headers,
-        body: JSON.stringify({
-          email,
-          password,
-        }),
-      }
-    );
+    const response = await fetch(`/api/auth/login`, {
+      method: "POST",
+      credentials: "include",
+      headers: headers,
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    });
     const data = await response.json();
     if (!response.ok) {
       const error = new Error(data.code || "로그인 실패") as Error & {
