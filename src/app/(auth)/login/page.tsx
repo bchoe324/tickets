@@ -1,7 +1,7 @@
 "use client";
 
-import loginAction from "@/actions/login-action";
-import loginTestAction from "@/actions/login-test-action";
+import loginAction from "@/lib/login-action";
+import loginTestAction from "@/lib/login-test-action";
 import InfoIcon from "@/assets/icons/InfoIcon";
 import Loading from "@/components/common/loading";
 import Link from "next/link";
@@ -64,13 +64,20 @@ export default function Page() {
   };
 
   const handleTestLogin = async () => {
-    const result = await loginTestAction();
-    if (result.ok) {
-      router.push("/");
-      router.refresh();
-    } else {
-      toast.error("테스트 로그인에 실패했습니다."); // Provide a default error message
-    }
+    startTransition(async () => {
+      try {
+        const result = await loginTestAction();
+        if (result.ok) {
+          router.push("/");
+          router.refresh();
+        } else {
+          toast.error("테스트 로그인에 실패했습니다."); // Provide a default error message
+        }
+      } catch (error) {
+        toast.error("테스트 로그인에 실패했습니다.");
+        console.error(error);
+      }
+    });
   };
 
   return (
