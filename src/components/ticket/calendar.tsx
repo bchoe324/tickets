@@ -56,7 +56,7 @@ export default function Calendar({
         ? addMonths(pivotDate, Math.abs(delta))
         : subMonths(pivotDate, Math.abs(delta));
     const year = getYear(newDate);
-    const month = getMonth(newDate);
+    const month = getMonth(newDate) + 1;
     router.push(`/tickets?year=${year}&month=${month}`);
   };
 
@@ -108,7 +108,7 @@ export default function Calendar({
           <button className="button" onClick={() => handleMonthChange(-1)}>
             <PrevIcon fill="currentColor" />
           </button>
-          <h2>{format(pivotDate, "yyy년 MM월")}</h2>
+          <h2>{format(pivotDate, "yyyy년 MM월")}</h2>
           <button className="button" onClick={() => handleMonthChange(1)}>
             <NextIcon fill="currentColor" />
           </button>

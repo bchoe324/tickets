@@ -11,7 +11,7 @@ export default async function Page({
   const searchYear = (await searchParams).year;
   const searchMonth = (await searchParams).month;
   const year = Number(searchYear) || getYear(now);
-  const month = Number(searchMonth) || getMonth(now);
+  const month = Number(searchMonth) || getMonth(now) + 1;
   const token = await getAccessToken();
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_SERVER_URL}/ticket/monthly?year=${year}&month=${month}`,
@@ -20,6 +20,10 @@ export default async function Page({
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
+      },
+      next: {
+        tags: [`tickets-${year}-${month}`],
+        revalidate: 60 * 10,
       },
     }
   );
@@ -30,7 +34,7 @@ export default async function Page({
   return (
     <>
       <div className="tickets-calendar">
-        <Calendar pivotDate={new Date(year, month)} tickets={tickets} />
+        <Calendar pivotDate={new Date(year, month - 1)} tickets={tickets} />
       </div>
     </>
   );
