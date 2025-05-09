@@ -1,21 +1,21 @@
 import DetailHeader from "@/components/common/detail-header";
-import { getAccessToken } from "@/utils/get-access-token";
 import { format } from "date-fns";
 import Image from "next/image";
 import ActionMenu from "@/components/common/action-menu";
 import EditIcon from "@/assets/icons/EditIcon";
 import Link from "next/link";
 import DeleteButton from "@/components/ticket/delete-button";
+import { getAccessToken } from "@/utils/get-access-token";
 
 async function TicketDetail({ ticketId }: { ticketId: string }) {
-  const token = await getAccessToken();
+  const accessToken = await getAccessToken();
 
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_SERVER_URL}/ticket/${ticketId}`,
     {
       method: "GET",
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${accessToken}`,
       },
     }
   );

@@ -3,10 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { format } from "date-fns";
 import NextIcon from "@/assets/icons/NextIcon";
-import { getAccessToken } from "@/utils/get-access-token";
 import UserActionButtons from "@/components/mypage/user-action-buttons";
 import { Suspense } from "react";
 import ProfileCardSkeleton from "@/components/skeleton/profile-card-skeleton";
+import { getAccessToken } from "@/utils/get-access-token";
 
 const subPages = [
   { title: "내 관람 후기", href: "review/my-review/" },
@@ -14,14 +14,10 @@ const subPages = [
 ];
 
 async function ProfileCard() {
-  const accessToken = await getAccessToken();
   let userData;
+  const accessToken = await getAccessToken();
 
-  if (!accessToken) {
-    return <></>;
-  }
   try {
-    // await delay(30000);
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_SERVER_URL}/auth/user`,
       {

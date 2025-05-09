@@ -2,18 +2,19 @@ export default async function loginTestAction() {
   const headers: HeadersInit = {
     "Content-Type": "application/json",
   };
-
-  const response = await fetch(`/api/auth/test-login`, {
-    method: "POST",
-    credentials: "include",
-    headers: headers,
-  });
-  const data = await response.json();
-
-  if (!response.ok) {
-    throw new Error(data.message || "로그인 실패");
-  } else {
-    console.log("로그인 성공");
-    return { ok: true };
+  try {
+    const response = await fetch(`/api/auth/test-login`, {
+      method: "POST",
+      credentials: "include",
+      headers: headers,
+    });
+    if (!response.ok) {
+      const data = await response.json();
+      throw new Error(data.message || "로그인 실패");
+    }
+  } catch (error) {
+    throw new Error(
+      error instanceof Error ? error.message : String(error) || "로그인 실패"
+    );
   }
 }

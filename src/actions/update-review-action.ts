@@ -4,11 +4,10 @@ import { getAccessToken } from "@/utils/get-access-token";
 import { redirect } from "next/navigation";
 
 export default async function updateReviewAction(formData: FormData) {
-  const accessToken = await getAccessToken();
-
   const reviewId = formData.get("reviewId");
   const recommend = Number(formData.get("recommend"));
   const review = formData.get("review");
+  const accessToken = await getAccessToken();
 
   try {
     const response = await fetch(
@@ -16,8 +15,8 @@ export default async function updateReviewAction(formData: FormData) {
       {
         method: "PATCH",
         headers: {
-          Authorization: `Bearer ${accessToken}`,
           "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
         },
         body: JSON.stringify({
           recommend,

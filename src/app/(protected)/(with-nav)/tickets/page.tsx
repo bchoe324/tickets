@@ -12,14 +12,15 @@ export default async function Page({
   const searchMonth = (await searchParams).month;
   const year = Number(searchYear) || getYear(now);
   const month = Number(searchMonth) || getMonth(now) + 1;
-  const token = await getAccessToken();
+  const accessToken = await getAccessToken();
+
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_SERVER_URL}/ticket/monthly?year=${year}&month=${month}`,
     {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${accessToken}`,
       },
       next: {
         tags: [`tickets-${year}-${month}`],

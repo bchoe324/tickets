@@ -66,13 +66,9 @@ export default function Page() {
   const handleTestLogin = async () => {
     startTransition(async () => {
       try {
-        const result = await loginTestAction();
-        if (result.ok) {
-          router.push("/");
-          router.refresh();
-        } else {
-          toast.error("테스트 로그인에 실패했습니다."); // Provide a default error message
-        }
+        await loginTestAction();
+        router.push("/");
+        router.refresh();
       } catch (error) {
         toast.error("테스트 로그인에 실패했습니다.");
         console.error(error);

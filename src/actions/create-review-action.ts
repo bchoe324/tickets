@@ -4,14 +4,13 @@ import { getAccessToken } from "@/utils/get-access-token";
 import { redirect } from "next/navigation";
 
 export default async function createReviewAction(formData: FormData) {
-  const accessToken = await getAccessToken();
-
   const rawShow = formData.get("show");
   const show = typeof rawShow === "string" ? JSON.parse(rawShow) : null;
   if (!show) return;
 
   const recommend = Number(formData.get("recommend"));
   const review = formData.get("review");
+  const accessToken = await getAccessToken();
 
   try {
     const response = await fetch(
@@ -19,8 +18,8 @@ export default async function createReviewAction(formData: FormData) {
       {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${accessToken}`,
           "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
         },
         body: JSON.stringify({
           show,

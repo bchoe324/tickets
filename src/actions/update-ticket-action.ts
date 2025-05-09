@@ -6,9 +6,9 @@ import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 
 export default async function updateTicketAction(formData: FormData) {
-  const accessToken = await getAccessToken();
   const ticketId = formData.get("ticketId");
   const dateString = formData.get("date");
+  const accessToken = await getAccessToken();
 
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_SERVER_URL}/ticket/${ticketId}`,

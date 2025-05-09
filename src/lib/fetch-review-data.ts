@@ -8,10 +8,10 @@ export default async function fetchReviewData(
   const url = `${process.env.NEXT_PUBLIC_API_SERVER_URL}/review/${
     !endpoint ? "" : endpoint
   }`;
-  console.log(accessToken, url);
 
   try {
     const response = await fetch(url, {
+      method: "GET",
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },

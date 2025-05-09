@@ -8,7 +8,7 @@ export default async function Page({
 }: {
   params: Promise<{ id: string }>;
 }) {
-  const token = await getAccessToken();
+  const accessToken = await getAccessToken();
   const ticketId = (await params).id;
 
   const response = await fetch(
@@ -16,7 +16,7 @@ export default async function Page({
     {
       method: "GET",
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${accessToken}`,
       },
     }
   );
