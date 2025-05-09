@@ -4,6 +4,9 @@ import { NextRequest } from "next/server";
 const AUTH_PAGES = ["/login", "/join"];
 
 export async function middleware(req: NextRequest) {
+  // /api 경로는 미들웨어 통과
+  if (new URL(req.url).pathname.startsWith("/api")) return NextResponse.next();
+
   const accessToken = req.cookies.get("access_token")?.value;
   const refreshToken = req.cookies.get("refresh_token")?.value;
 
